@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel | Flutter Developer & Figma</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header - Glassmorphism */
+        header {
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 700; color: var(--accent-color); text-decoration: none; letter-spacing: 1px; }
+        
+        nav { display: flex; align-items: center; gap: 25px; }
+        nav a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        nav a:hover { color: var(--accent-color); }
+
+        .lang-btn {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .lang-btn:hover { background: var(--accent-color); color: var(--bg-color); }
+
+        /* Hero Section */
+        .hero { padding: 100px 0 80px; position: relative; }
+        .badge {
+            display: inline-block; padding: 6px 16px; border-radius: 30px;
+            background: rgba(56, 189, 248, 0.05); color: var(--accent-color);
+            font-size: 0.85rem; font-weight: 600; margin-bottom: 25px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin-bottom: 40px; }
+        
+        .contact-btns { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 10px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary { background: var(--accent-color); color: var(--bg-color); box-shadow: 0 4px 14px var(--accent-glow); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--accent-glow); }
+        .btn-secondary { border: 1px solid rgba(148, 163, 184, 0.3); color: var(--text-main); background: rgba(255,255,255,0.02); }
+        .btn-secondary:hover { transform: translateY(-3px); border-color: var(--text-main); background: rgba(255,255,255,0.05); }
+
+        /* Reveal Animation Utility */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Titles */
+        .section-title { font-size: 2rem; margin: 80px 0 40px; display: inline-flex; align-items: center; gap: 15px; }
+        .section-title::after { content: ''; width: 60px; height: 2px; background: var(--accent-color); }
+
+        /* Skills Grid */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .skill-card {
+            background: var(--card-bg); padding: 20px; border-radius: 12px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+        }
+        .skill-card i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .skill-card span { font-weight: 600; font-size: 0.9rem; }
+        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent-color); background: rgba(30, 41, 59, 0.8); }
+
+        /* Experience Timeline */
+        .timeline { position: relative; padding-left: 30px; border-left: 2px solid var(--card-bg); margin-left: 10px; }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -37px; top: 6px; width: 12px; height: 12px;
+            background: var(--accent-color); border-radius: 50%; box-shadow: 0 0 10px var(--accent-color);
+        }
+        .timeline-date { color: var(--accent-color); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 5px; }
+        .timeline-content h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .timeline-content p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* Projects Grid */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .project-card {
+            background: var(--card-bg); border-radius: 16px; height: 300px; position: relative;
+            overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
+        }
+        .project-img { 
+            width: 100%; height: 100%; background: linear-gradient(45deg, #1e293b, #0f172a); 
+            display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.9rem;
+        }
+        .project-overlay {
+            position: absolute; inset: 0; padding: 30px;
+            background: linear-gradient(to top, rgba(15,23,42,0.95) 30%, transparent);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            transform: translateY(100px); opacity: 0; transition: 0.4s;
+        }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--accent-color); }
+        .project-card:hover .project-overlay { transform: translateY(0); opacity: 1; }
+        
+        .project-tags { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+        .tag { font-size: 0.7rem; padding: 3px 8px; background: rgba(56, 189, 248, 0.2); border-radius: 4px; color: var(--accent-color); font-weight: 700; }
+        .project-links { margin-top: 15px; display: flex; gap: 15px; }
+        .project-links a { color: #fff; font-size: 1.3rem; transition: 0.3s; }
+        .project-links a:hover { color: var(--accent-color); transform: scale(1.2); }
+
+        /* Services */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .service-card { background: var(--card-bg); padding: 40px 30px; border-radius: 16px; border: 1px solid transparent; transition: 0.3s; }
+        .service-card:hover { border-color: var(--accent-color); background: rgba(30, 41, 59, 0.5); }
+        .service-card i { font-size: 2rem; color: var(--accent-color); margin-bottom: 20px; display: block; }
+        .service-card h3 { margin-bottom: 15px; }
+        .service-card ul { list-style: none; color: var(--text-secondary); font-size: 0.95rem; }
+        .service-card li { margin-bottom: 10px; padding-left: 25px; position: relative; }
+        .service-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent-color); }
+
+        footer { text-align: center; padding: 60px 0; color: var(--text-secondary); border-top: 1px solid var(--card-bg); margin-top: 80px; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            header .header-inner { flex-direction: column; gap: 15px; }
+            nav { gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">DANIEL.DEV</a>
+            <nav>
+                <a href="#skills" class="lang-txt" data-ru="Навыки" data-en="Skills">Навыки</a>
+                <a href="#experience" class="lang-txt" data-ru="Опыт" data-en="Experience">Опыт</a>
+                <a href="#projects" class="lang-txt" data-ru="Проекты" data-en="Projects">Проекты</a>
+                <button id="lang-btn" class="lang-btn">EN</button>
+            </nav>
+        </div>
+    </header>
+
+<div class="container">
+    <section class="hero reveal">
+        <span class="badge"><i class="fa-solid fa-location-dot"></i> Tashkent (UTC+5) • Remote / Relocation</span>
+        <h1 class="lang-txt" data-ru="Привет, я Daniel" data-en="Hi, I'm Daniel">Привет, я Daniel</h1>
+        <p class="lang-txt" 
+           data-ru="Flutter Developer (iOS/Android) + Figma. Создаю мобильные приложения и мини-игры: от дизайна в Figma до публикации в сторах. Пишу чистый код и соблюдаю дедлайны." 
+           data-en="Flutter Developer (iOS/Android) + Figma. I build mobile apps and mini-games: from Figma prototypes to App Store/Google Play releases. Clean code & strict deadlines.">
+           Flutter Developer (iOS/Android) + Figma. Создаю мобильные приложения и мини-игры: от дизайна в Figma до публикации в сторах. Пишу чистый код и соблюдаю дедлайны.
+        </p>
+        <div class="contact-btns">
+            <a href="https://t.me/nenotiiice" class="btn btn-primary" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <a href="mailto:aslonov596@gmail.com" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Email</a>
+            <a href="resume.pdf" class="btn btn-secondary" target="_blank"><i class="fa-solid fa-file-pdf"></i> <span class="lang-txt" data-ru="Резюме" data-en="Resume">Резюме</span></a>
+        </div>
+    </section>
+
+    <section id="skills" class="reveal">
+        <h2 class="section-title lang-txt" data-ru="Навыки" data-en="Skills">Навыки</h2>
+        <div class="skills-grid">
+            <div class="skill-card"><i class="fa-brands fa-flutter" style="color:#54c5f8;"></i><span>Flutter</span></div>
+            <div class="skill-card"><i class="fa-solid fa-code" style="color:#00b4ab;"></i><span>Dart</span></div>
+            <div class="skill-card"><i class="fa-solid fa-layer-group"></i><span>Riverpod / BLoC</span></div>
+            <div class="skill-card"><i class="fa-solid fa-fire" style="color:#ffca28;"></i><span>Firebase</span></div>
+            <div class="skill-card"><i class="fa-solid fa-gears"></i><span>REST API</span></div>
+            <div class="skill-card"><i class="fa-brands fa-figma" style="color:#f24e1e;"></i><span>Figma UI/UX</span></div>
+            <div class="skill-card"><i class="fa-brands fa-git-alt" style="color:#f34f29;"></i><span>Git / CI/CD</span></div>
+            <div class="skill-card"><i class="fa-brands fa-apple"></i><span>App Store</span></div>
+        </div>
+    </section>
+
+    <section id="experience" class="reveal">
+        <h2 class="section-title lang-txt" data-ru="Опыт работы" data-en="Experience">Опыт работы</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2023 — Present</div>
+                <div class="timeline-content">
+                    <h3 class="lang-txt" data-ru="Flutter Developer (Freelance)" data-en="Flutter Developer (Freelance)">Flutter Developer (Freelance)</h3>
+                    <p class="lang-txt" 
+                       data-ru="Разработка и поддержка мобильных приложений. Интеграция API, работа со стейт-менеджментом (Riverpod), верстка сложных UI по макетам из Figma." 
+                       data-en="Developing and maintaining mobile apps. API integration, state management (Riverpod), and pixel-perfect UI implementation from Figma.">
+                       Разработка и поддержка мобильных приложений. Интеграция API, работа со стейт-менеджментом (Riverpod), верстка сложных UI по макетам из Figma.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2022 — 2023</div>
+                <div class="timeline-content">
+                    <h3 class="lang-txt" data-ru="UI/UX Designer" data-en="UI/UX Designer">UI/UX Designer</h3>
+                    <p class="lang-txt" 
+                       data-ru="Проектирование интерфейсов для мобильных и веб-приложений. Создание дизайн-систем, кликабельных прототипов и подготовка ассетов для разработки." 
+                       data-en="Designing interfaces for mobile and web apps. Creating design systems, clickable prototypes, and preparing assets for developers.">
+                       Проектирование интерфейсов для мобильных и веб-приложений. Создание дизайн-систем, кликабельных прототипов и подготовка ассетов для разработки.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="reveal">
+        <h2 class="section-title lang-txt" data-ru="Проекты" data-en="Projects">Проекты</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img">[ Project 1 Image ]</div>
+                <div class="project-overlay">
+                    <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Riverpod</span><span class="tag">Firebase</span></div>
+                    <h3>Fintech Mobile App</h3>
+                    <div class="project-links">
+                        <a href="#"><i class="fa-brands fa-github"></i></a>
+                        <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">[ Project 2 Image ]</div>
+                <div class="project-overlay">
+                    <div class="project-tags"><span class="tag">Figma</span><span class="tag">UI/UX</span><span class="tag">Prototyping</span></div>
+                    <h3>E-commerce Design System</h3>
+                    <div class="project-links">
+                        <a href="#"><i class="fa-brands fa-figma"></i></a>
+                        <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="reveal">
+        <h2 class="section-title lang-txt" data-ru="Услуги" data-en="Services">Услуги</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <h3 class="lang-txt" data-ru="Разработка под ключ" data-en="End-to-end Development">Разработка под ключ</h3>
+                <ul>
+                    <li class="lang-txt" data-ru="Полный цикл: от логики до стора" data-en="Full cycle: from logic to store">Полный цикл: от логики до стора</li>
+                    <li class="lang-txt" data-ru="Стейт-менеджмент и API" data-en="State management & API">Стейт-менеджмент и API</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h3 class="lang-txt" data-ru="Верстка из Figma" data-en="Figma to Flutter">Верстка из Figma</h3>
+                <ul>
+                    <li class="lang-txt" data-ru="Пиксель-перфект верстка" data-en="Pixel-perfect UI implementation">Пиксель-перфект верстка</li>
+                    <li class="lang-txt" data-ru="Сложные анимации и UI-киты" data-en="Complex animations & UI-kits">Сложные анимации и UI-киты</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Daniel Aslonov. <span class="lang-txt" data-ru="Сделано с любовью к коду." data-en="Built with love for code.">Сделано с любовью к коду.</span></p>
+    </footer>
+</div>
+
+<script>
+    // Language Toggle logic
+    const langBtn = document.getElementById('lang-btn');
+    const langElements = document.querySelectorAll('.lang-txt');
+    let currentLang = 'ru';
+
+    langBtn.addEventListener('click', () => {
+        currentLang = currentLang === 'ru' ? 'en' : 'ru';
+        langBtn.textContent = currentLang === 'ru' ? 'EN' : 'RU';
+        
+        langElements.forEach(el => {
+            el.textContent = el.getAttribute(`data-${currentLang}`);
+        });
+    });
+
+    // Reveal on scroll animation
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
