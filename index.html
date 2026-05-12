@@ -3,169 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel | Flutter Developer & Figma</title>
+    <title>Daniel | Flutter Developer & Designer</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     
     <style>
+        /* Темизация (Variables) */
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-color: #38bdf8;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #38bdf8;
             --accent-glow: rgba(56, 189, 248, 0.3);
-            --text-main: #f8fafc;
-            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-dim: #64748b;
+            --accent: #0284c7;
+            --accent-glow: rgba(2, 132, 199, 0.2);
+            --border: rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); transition: background 0.5s ease, color 0.5s ease; overflow-x: hidden; line-height: 1.6; }
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-
-        /* Header - Glassmorphism */
-        header {
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
+        
+        /* Header & Nav */
+        header { padding: 15px 0; position: sticky; top: 0; z-index: 1000; background: var(--bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.4rem; font-weight: 700; color: var(--accent-color); text-decoration: none; letter-spacing: 1px; }
+        .logo { font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.4rem; }
+        nav { display: flex; align-items: center; gap: 20px; }
         
-        nav { display: flex; align-items: center; gap: 25px; }
-        nav a { color: var(--text-secondary); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
-        nav a:hover { color: var(--accent-color); }
+        .icon-btn { background: none; border: none; color: var(--text); cursor: pointer; font-size: 1.2rem; transition: var(--transition); }
+        .icon-btn:hover { color: var(--accent); transform: scale(1.1); }
 
-        .lang-btn {
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 4px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.8rem;
-            transition: 0.3s;
-        }
-        .lang-btn:hover { background: var(--accent-color); color: var(--bg-color); }
-
-        /* Hero Section */
-        .hero { padding: 100px 0 80px; position: relative; }
-        .badge {
-            display: inline-block; padding: 6px 16px; border-radius: 30px;
-            background: rgba(56, 189, 248, 0.05); color: var(--accent-color);
-            font-size: 0.85rem; font-weight: 600; margin-bottom: 25px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-        }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
-        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin-bottom: 40px; }
+        /* Hero */
+        .hero { padding: 80px 0; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-animation { flex: 1; display: flex; justify-content: center; min-width: 300px; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); margin-bottom: 20px; }
         
-        .contact-btns { display: flex; gap: 15px; flex-wrap: wrap; }
-        .btn {
-            padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 10px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-primary { background: var(--accent-color); color: var(--bg-color); box-shadow: 0 4px 14px var(--accent-glow); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--accent-glow); }
-        .btn-secondary { border: 1px solid rgba(148, 163, 184, 0.3); color: var(--text-main); background: rgba(255,255,255,0.02); }
-        .btn-secondary:hover { transform: translateY(-3px); border-color: var(--text-main); background: rgba(255,255,255,0.05); }
+        /* Buttons */
+        .btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: var(--transition); border: none; cursor: pointer; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-secondary { border: 1px solid var(--border); color: var(--text); background: var(--card); }
+        .btn:hover { transform: translateY(-3px); }
 
-        /* Reveal Animation Utility */
+        /* Sections */
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        .section-title { font-size: 1.8rem; margin: 60px 0 30px; border-left: 4px solid var(--accent); padding-left: 15px; }
 
-        /* Titles */
-        .section-title { font-size: 2rem; margin: 80px 0 40px; display: inline-flex; align-items: center; gap: 15px; }
-        .section-title::after { content: ''; width: 60px; height: 2px; background: var(--accent-color); }
+        /* Project Cards (Video & Figma) */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .project-card { background: var(--card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); transition: var(--transition); position: relative; }
+        .project-media { width: 100%; height: 200px; background: #000; position: relative; overflow: hidden; }
+        .project-media video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s; }
+        .project-card:hover video { opacity: 1; transform: scale(1.05); }
+        .project-content { padding: 20px; }
+        .figma-link { font-size: 0.85rem; color: var(--accent); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 5px; margin-top: 10px; }
 
-        /* Skills Grid */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-        .skill-card {
-            background: var(--card-bg); padding: 20px; border-radius: 12px; text-align: center;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
-        }
-        .skill-card i { font-size: 2.5rem; margin-bottom: 15px; display: block; }
-        .skill-card span { font-weight: 600; font-size: 0.9rem; }
-        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent-color); background: rgba(30, 41, 59, 0.8); }
+        /* Testimonials Slider */
+        .testimonials-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; }
+        .testimonial-card { min-width: 300px; background: var(--card); padding: 25px; border-radius: 12px; scroll-snap-align: start; border: 1px solid var(--border); }
+        .testimonial-text { font-style: italic; color: var(--text-dim); margin-bottom: 15px; }
+        .author { font-weight: 700; display: flex; align-items: center; gap: 10px; }
 
-        /* Experience Timeline */
-        .timeline { position: relative; padding-left: 30px; border-left: 2px solid var(--card-bg); margin-left: 10px; }
-        .timeline-item { position: relative; margin-bottom: 40px; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -37px; top: 6px; width: 12px; height: 12px;
-            background: var(--accent-color); border-radius: 50%; box-shadow: 0 0 10px var(--accent-color);
-        }
-        .timeline-date { color: var(--accent-color); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 5px; }
-        .timeline-content h3 { font-size: 1.3rem; margin-bottom: 8px; }
-        .timeline-content p { color: var(--text-secondary); font-size: 0.95rem; }
-
-        /* Projects Grid */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .project-card {
-            background: var(--card-bg); border-radius: 16px; height: 300px; position: relative;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s;
-        }
-        .project-img { 
-            width: 100%; height: 100%; background: linear-gradient(45deg, #1e293b, #0f172a); 
-            display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.9rem;
-        }
-        .project-overlay {
-            position: absolute; inset: 0; padding: 30px;
-            background: linear-gradient(to top, rgba(15,23,42,0.95) 30%, transparent);
-            display: flex; flex-direction: column; justify-content: flex-end;
-            transform: translateY(100px); opacity: 0; transition: 0.4s;
-        }
-        .project-card:hover { transform: translateY(-10px); border-color: var(--accent-color); }
-        .project-card:hover .project-overlay { transform: translateY(0); opacity: 1; }
+        /* Contact Form */
+        .contact-section { background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid var(--border); margin-top: 40px; }
+        .contact-form { display: grid; gap: 15px; }
+        .input-group input, .input-group textarea { width: 100%; padding: 12px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 8px; font-family: inherit; }
         
-        .project-tags { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-        .tag { font-size: 0.7rem; padding: 3px 8px; background: rgba(56, 189, 248, 0.2); border-radius: 4px; color: var(--accent-color); font-weight: 700; }
-        .project-links { margin-top: 15px; display: flex; gap: 15px; }
-        .project-links a { color: #fff; font-size: 1.3rem; transition: 0.3s; }
-        .project-links a:hover { color: var(--accent-color); transform: scale(1.2); }
+        footer { text-align: center; padding: 40px 0; color: var(--text-dim); }
 
-        /* Services */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .service-card { background: var(--card-bg); padding: 40px 30px; border-radius: 16px; border: 1px solid transparent; transition: 0.3s; }
-        .service-card:hover { border-color: var(--accent-color); background: rgba(30, 41, 59, 0.5); }
-        .service-card i { font-size: 2rem; color: var(--accent-color); margin-bottom: 20px; display: block; }
-        .service-card h3 { margin-bottom: 15px; }
-        .service-card ul { list-style: none; color: var(--text-secondary); font-size: 0.95rem; }
-        .service-card li { margin-bottom: 10px; padding-left: 25px; position: relative; }
-        .service-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent-color); }
-
-        footer { text-align: center; padding: 60px 0; color: var(--text-secondary); border-top: 1px solid var(--card-bg); margin-top: 80px; font-size: 0.9rem; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            header .header-inner { flex-direction: column; gap: 15px; }
-            nav { gap: 15px; }
-        }
+        @media (max-width: 768px) { .hero { text-align: center; } .contact-btns { justify-content: center; } }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
     <header>
         <div class="container header-inner">
             <a href="#" class="logo">DANIEL.DEV</a>
             <nav>
-                <a href="#skills" class="lang-txt" data-ru="Навыки" data-en="Skills">Навыки</a>
-                <a href="#experience" class="lang-txt" data-ru="Опыт" data-en="Experience">Опыт</a>
-                <a href="#projects" class="lang-txt" data-ru="Проекты" data-en="Projects">Проекты</a>
+                <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
                 <button id="lang-btn" class="lang-btn">EN</button>
             </nav>
         </div>
@@ -173,142 +101,104 @@
 
 <div class="container">
     <section class="hero reveal">
-        <span class="badge"><i class="fa-solid fa-location-dot"></i> Tashkent (UTC+5) • Remote / Relocation</span>
-        <h1 class="lang-txt" data-ru="Привет, я Daniel" data-en="Hi, I'm Daniel">Привет, я Daniel</h1>
-        <p class="lang-txt" 
-           data-ru="Flutter Developer (iOS/Android) + Figma. Создаю мобильные приложения и мини-игры: от дизайна в Figma до публикации в сторах. Пишу чистый код и соблюдаю дедлайны." 
-           data-en="Flutter Developer (iOS/Android) + Figma. I build mobile apps and mini-games: from Figma prototypes to App Store/Google Play releases. Clean code & strict deadlines.">
-           Flutter Developer (iOS/Android) + Figma. Создаю мобильные приложения и мини-игры: от дизайна в Figma до публикации в сторах. Пишу чистый код и соблюдаю дедлайны.
-        </p>
-        <div class="contact-btns">
-            <a href="https://t.me/nenotiiice" class="btn btn-primary" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>
-            <a href="mailto:aslonov596@gmail.com" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Email</a>
-            <a href="resume.pdf" class="btn btn-secondary" target="_blank"><i class="fa-solid fa-file-pdf"></i> <span class="lang-txt" data-ru="Резюме" data-en="Resume">Резюме</span></a>
-        </div>
-    </section>
-
-    <section id="skills" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Навыки" data-en="Skills">Навыки</h2>
-        <div class="skills-grid">
-            <div class="skill-card"><i class="fa-brands fa-flutter" style="color:#54c5f8;"></i><span>Flutter</span></div>
-            <div class="skill-card"><i class="fa-solid fa-code" style="color:#00b4ab;"></i><span>Dart</span></div>
-            <div class="skill-card"><i class="fa-solid fa-layer-group"></i><span>Riverpod / BLoC</span></div>
-            <div class="skill-card"><i class="fa-solid fa-fire" style="color:#ffca28;"></i><span>Firebase</span></div>
-            <div class="skill-card"><i class="fa-solid fa-gears"></i><span>REST API</span></div>
-            <div class="skill-card"><i class="fa-brands fa-figma" style="color:#f24e1e;"></i><span>Figma UI/UX</span></div>
-            <div class="skill-card"><i class="fa-brands fa-git-alt" style="color:#f34f29;"></i><span>Git / CI/CD</span></div>
-            <div class="skill-card"><i class="fa-brands fa-apple"></i><span>App Store</span></div>
-        </div>
-    </section>
-
-    <section id="experience" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Опыт работы" data-en="Experience">Опыт работы</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">2023 — Present</div>
-                <div class="timeline-content">
-                    <h3 class="lang-txt" data-ru="Flutter Developer (Freelance)" data-en="Flutter Developer (Freelance)">Flutter Developer (Freelance)</h3>
-                    <p class="lang-txt" 
-                       data-ru="Разработка и поддержка мобильных приложений. Интеграция API, работа со стейт-менеджментом (Riverpod), верстка сложных UI по макетам из Figma." 
-                       data-en="Developing and maintaining mobile apps. API integration, state management (Riverpod), and pixel-perfect UI implementation from Figma.">
-                       Разработка и поддержка мобильных приложений. Интеграция API, работа со стейт-менеджментом (Riverpod), верстка сложных UI по макетам из Figma.
-                    </p>
-                </div>
+        <div class="hero-text">
+            <span class="badge" style="background: var(--accent-glow); padding: 5px 15px; border-radius: 20px; color: var(--accent); font-size: 0.8rem; font-weight: bold;">AVAILABLE FOR HIRE</span>
+            <h1 class="lang-txt" data-ru="Код и Дизайн" data-en="Code & Design">Код и Дизайн</h1>
+            <p class="lang-txt" data-ru="Создаю Flutter-приложения с душой. Figma-дизайнер по утрам, разработчик по вечерам." data-en="Crafting Flutter apps with soul. Figma designer by day, developer by night.">
+                Создаю Flutter-приложения с душой. Figma-дизайнер по утрам, разработчик по вечерам.
+            </p>
+            <div class="contact-btns" style="margin-top: 25px;">
+                <a href="#contact" class="btn btn-primary lang-txt" data-ru="Обсудить проект" data-en="Hire Me">Обсудить проект</a>
+                <a href="https://t.me/nenotiiice" class="btn btn-secondary"><i class="fa-brands fa-telegram"></i></a>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2022 — 2023</div>
-                <div class="timeline-content">
-                    <h3 class="lang-txt" data-ru="UI/UX Designer" data-en="UI/UX Designer">UI/UX Designer</h3>
-                    <p class="lang-txt" 
-                       data-ru="Проектирование интерфейсов для мобильных и веб-приложений. Создание дизайн-систем, кликабельных прототипов и подготовка ассетов для разработки." 
-                       data-en="Designing interfaces for mobile and web apps. Creating design systems, clickable prototypes, and preparing assets for developers.">
-                       Проектирование интерфейсов для мобильных и веб-приложений. Создание дизайн-систем, кликабельных прототипов и подготовка ассетов для разработки.
-                    </p>
-                </div>
-            </div>
+        </div>
+        <div class="hero-animation">
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_m6cu96.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
         </div>
     </section>
 
     <section id="projects" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Проекты" data-en="Projects">Проекты</h2>
+        <h2 class="section-title lang-txt" data-ru="Мои работы" data-en="Featured Projects">Мои работы</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-img">[ Project 1 Image ]</div>
-                <div class="project-overlay">
-                    <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Riverpod</span><span class="tag">Firebase</span></div>
-                    <h3>Fintech Mobile App</h3>
-                    <div class="project-links">
-                        <a href="#"><i class="fa-brands fa-github"></i></a>
-                        <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    </div>
+                <div class="project-media">
+                    <video autoplay muted loop playsinline poster="preview.jpg">
+                        <source src="https://cdn.pixabay.com/video/2021/04/12/70851-536480838_large.mp4" type="video/mp4">
+                    </video>
                 </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img">[ Project 2 Image ]</div>
-                <div class="project-overlay">
-                    <div class="project-tags"><span class="tag">Figma</span><span class="tag">UI/UX</span><span class="tag">Prototyping</span></div>
-                    <h3>E-commerce Design System</h3>
-                    <div class="project-links">
-                        <a href="#"><i class="fa-brands fa-figma"></i></a>
-                        <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    </div>
+                <div class="project-content">
+                    <h3>Fintech Dashboard</h3>
+                    <p class="lang-txt" data-ru="Кошелек с графиками и аналитикой." data-en="Wallet app with charts & analytics.">Кошелек с графиками и аналитикой.</p>
+                    <a href="#" class="figma-link"><i class="fa-brands fa-figma"></i> <span class="lang-txt" data-ru="Посмотреть прототип" data-en="Open Figma Prototype">Посмотреть прототип</span></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Услуги" data-en="Services">Услуги</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <h3 class="lang-txt" data-ru="Разработка под ключ" data-en="End-to-end Development">Разработка под ключ</h3>
-                <ul>
-                    <li class="lang-txt" data-ru="Полный цикл: от логики до стора" data-en="Full cycle: from logic to store">Полный цикл: от логики до стора</li>
-                    <li class="lang-txt" data-ru="Стейт-менеджмент и API" data-en="State management & API">Стейт-менеджмент и API</li>
-                </ul>
+    <section class="reveal">
+        <h2 class="section-title lang-txt" data-ru="Отзывы" data-en="Testimonials">Отзывы</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Daniel delivered the app 2 days earlier than expected. Clean code and great UI."</p>
+                <div class="author"><i class="fa-solid fa-circle-user"></i> <span>Mark S. (Startup CEO)</span></div>
             </div>
-            <div class="service-card">
-                <i class="fa-solid fa-pen-nib"></i>
-                <h3 class="lang-txt" data-ru="Верстка из Figma" data-en="Figma to Flutter">Верстка из Figma</h3>
-                <ul>
-                    <li class="lang-txt" data-ru="Пиксель-перфект верстка" data-en="Pixel-perfect UI implementation">Пиксель-перфект верстка</li>
-                    <li class="lang-txt" data-ru="Сложные анимации и UI-киты" data-en="Complex animations & UI-kits">Сложные анимации и UI-киты</li>
-                </ul>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Лучший специалист по Flutter, с которым мы работали. Дизайн в Figma просто топ!"</p>
+                <div class="author"><i class="fa-solid fa-circle-user"></i> <span>Алексей К. (PM)</span></div>
             </div>
+        </div>
+    </section>
+
+    <section id="contact" class="reveal">
+        <h2 class="section-title lang-txt" data-ru="Связаться со мной" data-en="Get in Touch">Связаться со мной</h2>
+        <div class="contact-section">
+            <form class="contact-form" action="https://formspree.io/f/your-id" method="POST">
+                <div class="input-group">
+                    <input type="text" name="name" placeholder="Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary lang-txt" data-ru="Отправить" data-en="Send Message">Отправить</button>
+            </form>
         </div>
     </section>
 
     <footer>
-        <p>© 2024 Daniel Aslonov. <span class="lang-txt" data-ru="Сделано с любовью к коду." data-en="Built with love for code.">Сделано с любовью к коду.</span></p>
+        <p>© 2024 Daniel Aslonov. Flutter Developer.</p>
     </footer>
 </div>
 
 <script>
-    // Language Toggle logic
-    const langBtn = document.getElementById('lang-btn');
-    const langElements = document.querySelectorAll('.lang-txt');
-    let currentLang = 'ru';
+    // Тема (Dark/Light)
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    themeBtn.addEventListener('click', () => {
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    });
 
+    // Язык
+    const langBtn = document.getElementById('lang-btn');
+    let lang = 'ru';
     langBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
-        langBtn.textContent = currentLang === 'ru' ? 'EN' : 'RU';
-        
-        langElements.forEach(el => {
-            el.textContent = el.getAttribute(`data-${currentLang}`);
+        lang = lang === 'ru' ? 'en' : 'ru';
+        langBtn.textContent = lang.toUpperCase();
+        document.querySelectorAll('.lang-txt').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`);
         });
     });
 
-    // Reveal on scroll animation
-    const observerOptions = { threshold: 0.1 };
+    // Анимация при скролле
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
-    }, observerOptions);
-
+    }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
