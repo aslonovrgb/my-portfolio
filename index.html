@@ -1,332 +1,559 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Aslonov | Flutter Expert & Designer</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuvora Studio - Websites, Mobile Apps & UI/UX</title>
+  <meta name="description" content="Nuvora Studio - digital studio creating websites, mobile apps, UI/UX design and MVP products from idea to launch.">
+  <meta name="keywords" content="Nuvora Studio, Websites, Mobile Apps, UI UX Design, Flutter, Figma, MVP, Digital Studio">
+  <meta name="author" content="Nuvora Studio by Savchenko Daniil">
+  <meta name="theme-color" content="#38bdf8">
 
-    <style>
-        /* --- ПЕРЕМЕННЫЕ И ТЕМЫ --- */
-        :root {
-            --bg: #0b0f1a; 
-            --card: rgba(30, 41, 59, 0.7); 
-            --text: #f8fafc; 
-            --text-dim: #94a3b8;
-            --accent: #38bdf8; 
-            --accent-glow: rgba(56, 189, 248, 0.3);
-            --border: rgba(255, 255, 255, 0.08); 
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --git-inv: 0.9;
-        }
+  <meta property="og:title" content="Nuvora Studio | Websites, Apps & UI/UX">
+  <meta property="og:description" content="We design and build websites, mobile apps and UI/UX experiences from idea to launch.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/og-preview.svg">
+  <meta property="og:url" content="https://nuvora.studio">
+  <meta name="twitter:card" content="summary_large_image">
 
-        [data-theme="light"] {
-            --bg: #f8fafc; 
-            --card: rgba(255, 255, 255, 0.8); 
-            --text: #0f172a; 
-            --text-dim: #64748b;
-            --accent: #0284c7; 
-            --accent-glow: rgba(2, 132, 199, 0.15); 
-            --border: rgba(0, 0, 0, 0.08);
-            --git-inv: 0;
-        }
-
-        /* --- БАЗОВЫЕ НАСТРОЙКИ --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Свой курсор */
-        
-        html { scroll-behavior: smooth; }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            transition: background 0.5s ease; 
-            overflow-x: hidden; 
-            line-height: 1.6;
-            /* Сетка на фоне */
-            background-image: radial-gradient(var(--border) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
-
-        /* --- Custom Cursor --- */
-        #cursor {
-            position: fixed; width: 20px; height: 20px; background: var(--accent);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-            mix-blend-mode: difference; transition: transform 0.15s ease-out, background 0.3s;
-        }
-        .cursor-hover { transform: scale(3.5); background: rgba(255,255,255,0.2) !important; }
-
-        /* Progress Bar */
-        .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent); z-index: 2000; width: 0%; box-shadow: 0 0 15px var(--accent); }
-
-        /* Header */
-        header { 
-            padding: 20px 0; position: sticky; top: 0; z-index: 1000; 
-            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); 
-        }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 900; color: var(--accent); text-decoration: none; font-size: 1.5rem; letter-spacing: -1px; }
-
-        /* Hero Section */
-        .hero { padding: 100px 0; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
-        .hero-text { flex: 1.2; min-width: 320px; }
-        .hero h1 { font-size: clamp(2.8rem, 8vw, 4.2rem); font-weight: 900; line-height: 1; margin-bottom: 25px; }
-        .hero h1 span { color: var(--accent); }
-        .badge { background: var(--accent-glow); padding: 6px 15px; border-radius: 20px; color: var(--accent); font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 15px; }
-
-        /* Buttons */
-        .btn { 
-            padding: 15px 35px; border-radius: 14px; text-decoration: none; font-weight: 700; 
-            display: inline-flex; align-items: center; gap: 12px; transition: var(--transition); border: none;
-        }
-        .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 25px var(--accent-glow); }
-        .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-        .btn:hover { transform: translateY(-5px); filter: brightness(1.1); }
-
-        /* Services */
-        .section-title { font-size: 2rem; margin: 80px 0 40px; display: flex; align-items: center; gap: 20px; }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-        
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .service-card { 
-            background: var(--card); padding: 40px; border-radius: 28px; border: 1px solid var(--border);
-            backdrop-filter: blur(10px); transition: var(--transition);
-        }
-        .service-card:hover { transform: translateY(-10px); border-color: var(--accent); background: var(--accent-glow); }
-        .service-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
-
-        /* Experience Timeline */
-        .timeline { position: relative; padding-left: 30px; border-left: 2px solid var(--border); margin-bottom: 50px; }
-        .timeline-item { position: relative; margin-bottom: 40px; }
-        .timeline-item::before { content: ''; position: absolute; left: -37px; top: 5px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
-        .timeline-date { color: var(--accent); font-weight: 800; font-size: 0.9rem; margin-bottom: 5px; }
-
-        /* Projects (Figma Embed) */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .project-card { background: var(--card); border-radius: 30px; overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
-        .project-media { height: 320px; background: #000; position: relative; }
-        .project-media iframe { width: 100%; height: 100%; border: none; }
-        .project-info { padding: 30px; }
-        .tag { font-size: 0.75rem; padding: 5px 12px; background: var(--accent-glow); color: var(--accent); border-radius: 8px; font-weight: 700; margin-right: 8px; }
-
-        /* GitHub Stats */
-        .github-stats { width: 100%; border-radius: 24px; filter: invert(var(--git-inv)); margin-top: 40px; transition: 0.5s; border: 1px solid var(--border); }
-
-        /* FAQ */
-        .faq-item { background: var(--card); border-radius: 20px; margin-bottom: 15px; border: 1px solid var(--border); transition: var(--transition); }
-        .faq-question { padding: 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
-        .faq-answer { padding: 0 25px; max-height: 0; overflow: hidden; transition: 0.4s ease; color: var(--text-dim); }
-        .faq-item.active .faq-answer { padding-bottom: 25px; max-height: 300px; }
-        .faq-item.active i { transform: rotate(180deg); color: var(--accent); }
-
-        /* Contact Section */
-        .contact-section { background: var(--card); padding: 45px; border-radius: 35px; border: 1px solid var(--border); backdrop-filter: blur(15px); }
-        .contact-form input, .contact-form textarea { 
-            width: 100%; padding: 18px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); 
-            color: var(--text); border-radius: 16px; margin-bottom: 15px; font-family: inherit; transition: 0.3s;
-        }
-        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; background: rgba(0,0,0,0.3); }
-        
-        [data-fs-success], [data-fs-error] { display: none; padding: 20px; border-radius: 16px; text-align: center; margin-bottom: 20px; font-weight: 700; }
-        [data-fs-success] { background: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid var(--accent); }
-
-        /* FAB */
-        .fab { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 1000; box-shadow: 0 15px 30px var(--accent-glow); text-decoration: none; transition: 0.3s; }
-
-        /* Animations */
-        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) { * { cursor: auto !important; } #cursor { display: none; } .hero { text-align: center; justify-content: center; } }
-    </style>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-theme="dark">
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader-card">
+      <span class="preloader-dot"></span>
+      <strong>NUVORA</strong>
+    </div>
+  </div>
 
-    <div id="cursor"></div>
-    <div class="progress-bar" id="myBar"></div>
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-follower" aria-hidden="true"></div>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+  <div id="toast" role="status" aria-live="polite">Почта скопирована!</div>
 
-    <header>
-        <div class="container header-inner">
-            <a href="#" class="logo active-hover">DANIEL.DEV</a>
-            <div style="display:flex; gap:15px; align-items: center;">
-                <button id="theme-toggle" class="active-hover" style="background:none; border:none; color:var(--text); font-size:1.3rem;"><i class="fa-solid fa-moon"></i></button>
-                <button id="lang-btn" class="lang-btn active-hover">EN</button>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="logo active-hover" aria-label="Nuvora Studio home">
+        <span class="logo-mark">N</span>
+        <span>Nuvora</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#projects" class="nav-link lang-txt active-hover" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+        <a href="#services" class="nav-link lang-txt active-hover" data-ru="Услуги" data-en="Services">Услуги</a>
+        <a href="#skills" class="nav-link lang-txt active-hover" data-ru="Навыки" data-en="Capabilities">Навыки</a>
+        <a href="#process" class="nav-link lang-txt active-hover" data-ru="Процесс" data-en="Process">Процесс</a>
+        <a href="#contact" class="nav-link lang-txt active-hover" data-ru="Контакты" data-en="Contact">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact" class="header-cta active-hover lang-txt" data-ru="Обсудить проект" data-en="Let's talk">Обсудить проект</a>
+        <button id="theme-toggle" class="icon-btn active-hover" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button id="lang-btn" class="lang-btn active-hover" aria-label="Switch language">EN</button>
+        <button id="menu-toggle" class="icon-btn mobile-menu-btn active-hover" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#projects" class="lang-txt active-hover" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+      <a href="#services" class="lang-txt active-hover" data-ru="Услуги" data-en="Services">Услуги</a>
+      <a href="#skills" class="lang-txt active-hover" data-ru="Навыки" data-en="Capabilities">Навыки</a>
+      <a href="#process" class="lang-txt active-hover" data-ru="Процесс" data-en="Process">Процесс</a>
+      <a href="#contact" class="lang-txt active-hover" data-ru="Контакты" data-en="Contact">Контакты</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="hero scroll-section">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="eyebrow-row">
+            <span class="status-pill">
+              <span class="status-dot"></span>
+              <span class="lang-txt" data-ru="Открыты к новым проектам" data-en="Open for new projects">Открыты к новым проектам</span>
+            </span>
+            <span id="smart-greeting" class="greeting">Добрый день!</span>
+          </div>
+
+          <p class="hero-kicker">Nuvora Studio / Design. Build. Launch.</p>
+          <h1 class="hero-title lang-txt" data-ru="Создаём <span>сайты</span>, приложения и UI/UX от идеи до запуска." data-en="We build <span>websites</span>, apps and UI/UX from idea to launch.">
+            Создаём <span>сайты</span>, приложения и UI/UX от идеи до запуска.
+          </h1>
+          <p class="hero-description">
+            <span class="lang-txt" data-ru="Nuvora — digital-студия для стартапов, личных брендов и продуктов. Делаем: " data-en="Nuvora is a digital studio for startups, personal brands and products. We create: ">Nuvora — digital-студия для стартапов, личных брендов и продуктов. Делаем: </span>
+            <strong id="typewriter"></strong><span class="typewriter-cursor" aria-hidden="true"></span>
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary active-hover lang-txt" data-ru="Посмотреть кейсы" data-en="View cases">Посмотреть кейсы</a>
+            <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Обсудить проект" data-en="Discuss project">Обсудить проект</a>
+            <a href="#services" class="btn btn-ghost active-hover">
+              <i class="fa-solid fa-layer-group"></i>
+              <span class="lang-txt" data-ru="Услуги" data-en="Services">Услуги</span>
+            </a>
+          </div>
+
+          <div class="hero-socials" aria-label="Social links">
+            <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="https://t.me/nenotiiice" target="_blank" rel="noopener" class="active-hover"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <button id="copy-email" class="email-link active-hover"><i class="fa-regular fa-envelope"></i> Email</button>
+            <span id="email-text" hidden>nenotiiice@gmail.com</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal active-hover" data-tilt data-tilt-max="6" data-tilt-speed="450">
+          <div class="device-card studio-dashboard">
+            <div class="device-topbar">
+              <span></span><span></span><span></span>
+              <strong>nuvora_product.map</strong>
             </div>
-        </div>
-    </header>
-
-<div class="container">
-    <section class="hero reveal">
-        <div class="hero-text">
-            <div class="badge lang-txt" data-ru="Доступен для новых проектов" data-en="Available for New Projects">Доступен для новых проектов</div>
-            <h1>Digital <span>Products</span> Designer</h1>
-            <p class="lang-txt" data-ru="Привет! Я Даниэль. Специализируюсь на создании высокопроизводительных Flutter-приложений и современных интерфейсов в Figma." data-en="Hi! I'm Daniel. I specialize in building high-performance Flutter applications and modern interfaces in Figma.">Я создаю мобильные приложения и современный дизайн.</p>
-            <div style="margin-top: 35px; display: flex; gap: 15px; flex-wrap: wrap;">
-                <a href="#contact" class="btn btn-primary active-hover lang-txt" data-ru="Начать проект" data-en="Start a Project">Начать проект</a>
-                <a href="https://t.me/nenotiiice" target="_blank" class="btn btn-secondary active-hover"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <div class="phone-preview">
+              <div class="phone-glow"></div>
+              <div class="phone-shell">
+                <div class="app-header">
+                  <div>
+                    <small>Studio flow</small>
+                    <strong>Design → Build → Launch</strong>
+                  </div>
+                  <span><i class="fa-solid fa-bolt"></i></span>
+                </div>
+                <div class="app-card app-card-main">
+                  <i class="fa-solid fa-rocket"></i>
+                  <div>
+                    <strong>MVP Launch</strong>
+                    <small>Websites • Apps • UI/UX</small>
+                  </div>
+                </div>
+                <div class="mini-grid">
+                  <div><i class="fa-brands fa-figma"></i><span>Figma</span></div>
+                  <div><i class="fa-brands fa-flutter"></i><span>Flutter</span></div>
+                </div>
+                <div class="progress-stack">
+                  <div><span>Product strategy</span><b>94%</b></div>
+                  <div class="bar"><span style="width:94%"></span></div>
+                  <div><span>UI/UX polish</span><b>96%</b></div>
+                  <div class="bar"><span style="width:96%"></span></div>
+                  <div><span>Development</span><b>91%</b></div>
+                  <div class="bar"><span style="width:91%"></span></div>
+                </div>
+              </div>
             </div>
+            <div class="floating-chip chip-1"><i class="fa-solid fa-globe"></i> Websites</div>
+            <div class="floating-chip chip-2"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</div>
+          </div>
         </div>
-        <div class="hero-animation">
-            <dotlottie-player src="https://lottie.host/7e049103-6254-464a-923c-74a686616429/Z1k8nAs5Qh.json" background="transparent" speed="1" style="width: 100%; max-width: 450px;" loop autoplay></dotlottie-player>
-        </div>
+      </div>
     </section>
 
-    <section class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Что я делаю" data-en="Expertise">Что я делаю</h2>
-        <div class="services-grid">
-            <div class="service-card active-hover">
-                <i class="fa-solid fa-mobile-screen"></i>
-                <h3 class="lang-txt" data-ru="Flutter Разработка" data-en="Mobile Development">Flutter Разработка</h3>
-                <p class="lang-txt" data-ru="Создание быстрых приложений для iOS и Android с единым кодом." data-en="Building fast, cross-platform apps for iOS and Android.">Кроссплатформенные приложения.</p>
-            </div>
-            <div class="service-card active-hover">
-                <i class="fa-solid fa-bezier-curve"></i>
-                <h3 class="lang-txt" data-ru="UI/UX Дизайн" data-en="Interface Design">UI/UX Дизайн</h3>
-                <p class="lang-txt" data-ru="Проектирование интуитивно понятных интерфейсов в Figma." data-en="Creating intuitive and beautiful interfaces in Figma.">Проектирование в Figma.</p>
-            </div>
-            <div class="service-card active-hover">
-                <i class="fa-solid fa-layer-group"></i>
-                <h3 class="lang-txt" data-ru="Архитектура" data-en="Architecture">Архитектура</h3>
-                <p class="lang-txt" data-ru="Настройка Firebase бэкенда и чистого кода Riverpod/Bloc." data-en="Setting up Firebase backend and clean Riverpod/Bloc code.">Firebase и чистый код.</p>
-            </div>
-        </div>
+    <section class="trust-section reveal" aria-label="Nuvora services overview">
+      <div class="container trust-grid">
+        <div class="trust-item"><strong>Websites</strong><span class="lang-txt" data-ru="лендинги и сайты" data-en="landing pages & sites">лендинги и сайты</span></div>
+        <div class="trust-item"><strong>Mobile</strong><span class="lang-txt" data-ru="iOS / Android" data-en="iOS / Android">iOS / Android</span></div>
+        <div class="trust-item"><strong>UI/UX</strong><span class="lang-txt" data-ru="Figma и прототипы" data-en="Figma & prototypes">Figma и прототипы</span></div>
+        <div class="trust-item"><strong>MVP</strong><span class="lang-txt" data-ru="запуск первой версии" data-en="first version launch">запуск первой версии</span></div>
+        <div class="trust-item"><strong>Remote</strong><span class="lang-txt" data-ru="работа глобально" data-en="global work">работа глобально</span></div>
+      </div>
     </section>
 
-    <section class="reveal" style="margin-top: 100px;">
-        <h2 class="section-title lang-txt" data-ru="Опыт" data-en="Experience">Опыт</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">2024 — Present</div>
-                <h3 class="lang-txt" data-ru="Middle Flutter Developer & UI Designer" data-en="Middle Flutter Developer & UI Designer">Middle Flutter Developer</h3>
-                <p class="lang-txt" data-ru="Проектирование сложных систем и интеграция API." data-en="Architecting complex systems and API integration.">Сложные системы и API.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2023</div>
-                <h3 class="lang-txt" data-ru="Junior Developer" data-en="Junior Developer">Junior Developer</h3>
-                <p class="lang-txt" data-ru="Разработка UI компонентов и верстка макетов." data-en="Developing UI components and layout implementation.">UI компоненты и верстка.</p>
-            </div>
+    <section id="projects" class="section scroll-section reveal">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label lang-txt" data-ru="Кейсы Nuvora" data-en="Nuvora cases">Кейсы Nuvora</span>
+          <h2 class="section-title lang-txt" data-ru="Концепты и demo-проекты, которые показывают подход студии." data-en="Concept and demo projects that show the studio approach.">Концепты и demo-проекты, которые показывают подход студии.</h2>
+          <p class="section-subtitle lang-txt" data-ru="Пока настоящие клиентские кейсы можно добавлять позже, эти карточки честно отмечены как Concept / Demo / MVP и показывают услуги, стиль и процесс." data-en="Until real client cases are added, these cards are clearly marked as Concept / Demo / MVP and show services, style and process.">Пока настоящие клиентские кейсы можно добавлять позже, эти карточки честно отмечены как Concept / Demo / MVP и показывают услуги, стиль и процесс.</p>
         </div>
-        <img class="github-stats reveal" src="https://github-readme-stats.vercel.app/api?username=aslonovrgb&show_icons=true&theme=transparent&hide_border=true&title_color=38bdf8&text_color=94a3b8&icon_color=38bdf8" alt="Stats">
+
+        <div class="filters" role="tablist" aria-label="Project filters">
+          <button class="filter-btn active active-hover lang-txt" data-filter="all" data-ru="Все" data-en="All">Все</button>
+          <button class="filter-btn active-hover" data-filter="web">Web</button>
+          <button class="filter-btn active-hover" data-filter="mobile">Mobile</button>
+          <button class="filter-btn active-hover" data-filter="uiux">UI/UX</button>
+          <button class="filter-btn active-hover" data-filter="mvp">MVP</button>
+        </div>
+
+        <div class="case-stack">
+          <article class="case-card active-hover" data-category="mobile uiux mvp">
+            <div class="case-media mockup-media">
+              <div class="mockup-screen premium-phone">
+                <div class="mockup-header"><span></span><strong>NovaShop</strong><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="product-card"><i class="fa-solid fa-shirt"></i><div><strong>Smart Catalog</strong><small>Cart, filters, favorites</small></div></div>
+                <div class="mockup-list"><span></span><span></span><span></span></div>
+                <div class="mockup-nav"><i class="fa-solid fa-house"></i><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-cart-shopping"></i><i class="fa-solid fa-user"></i></div>
+              </div>
+              <div class="media-overlay"><span><i class="fa-solid fa-tag"></i> Concept MVP</span></div>
+            </div>
+            <div class="case-content">
+              <div class="case-meta"><span>Mobile</span><span>Flutter</span><span>MVP</span></div>
+              <h3>NovaShop — E-commerce Mobile App</h3>
+              <p class="lang-txt" data-ru="Концепт мобильного магазина с каталогом, корзиной, избранным и понятным путём покупки." data-en="A mobile commerce concept with catalog, cart, favorites and a clear purchase flow.">Концепт мобильного магазина с каталогом, корзиной, избранным и понятным путём покупки.</p>
+              <ul class="case-points">
+                <li class="lang-txt" data-ru="UX-структура, onboarding и сценарии покупки" data-en="UX structure, onboarding and purchase flows">UX-структура, onboarding и сценарии покупки</li>
+                <li class="lang-txt" data-ru="UI-kit и карточки товаров для Flutter" data-en="UI kit and product cards for Flutter">UI-kit и карточки товаров для Flutter</li>
+                <li class="lang-txt" data-ru="Корзина, избранное, состояния загрузки и ошибок" data-en="Cart, favorites, loading and error states">Корзина, избранное, состояния загрузки и ошибок</li>
+              </ul>
+              <div class="case-actions">
+                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Заказать MVP" data-en="Build MVP">Заказать MVP</a>
+                <a href="#services" class="btn btn-ghost active-hover lang-txt" data-ru="Что входит" data-en="What is included">Что входит</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reverse active-hover" data-category="web uiux">
+            <div class="case-media mockup-media alt">
+              <div class="analytics-card website-card">
+                <div class="analytics-top"><i class="fa-solid fa-globe"></i><span>Cloudly</span></div>
+                <div class="analytics-number">SaaS</div>
+                <div class="analytics-bars"><span></span><span></span><span></span><span></span><span></span></div>
+                <div class="analytics-grid"><div></div><div></div><div></div><div></div></div>
+              </div>
+              <div class="media-overlay"><span><i class="fa-solid fa-desktop"></i> Website Concept</span></div>
+            </div>
+            <div class="case-content">
+              <div class="case-meta"><span>Website</span><span>Landing</span><span>Frontend</span></div>
+              <h3>Cloudly — SaaS Landing Page</h3>
+              <p class="lang-txt" data-ru="Премиальный лендинг для SaaS-сервиса: сильный hero, блоки доверия, pricing, FAQ и форма заявки." data-en="A premium SaaS landing page: strong hero, trust blocks, pricing, FAQ and lead form.">Премиальный лендинг для SaaS-сервиса: сильный hero, блоки доверия, pricing, FAQ и форма заявки.</p>
+              <ul class="case-points">
+                <li class="lang-txt" data-ru="Структура посадочной страницы под конверсию" data-en="Conversion-focused landing page structure">Структура посадочной страницы под конверсию</li>
+                <li class="lang-txt" data-ru="Адаптивная вёрстка и аккуратные анимации" data-en="Responsive layout and subtle animations">Адаптивная вёрстка и аккуратные анимации</li>
+                <li class="lang-txt" data-ru="CTA, тарифы, FAQ и контактная форма" data-en="CTA, pricing, FAQ and contact form">CTA, тарифы, FAQ и контактная форма</li>
+              </ul>
+              <div class="case-actions">
+                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Заказать сайт" data-en="Build website">Заказать сайт</a>
+                <a href="#skills" class="btn btn-ghost active-hover lang-txt" data-ru="Технологии" data-en="Tech stack">Технологии</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card active-hover" data-category="uiux mobile">
+            <div class="case-media figma-media concept-media">
+              <div class="design-board">
+                <div class="board-top"><i class="fa-brands fa-figma"></i><span>FinTrack UI System</span></div>
+                <div class="board-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div class="board-flow"><span></span><span></span><span></span></div>
+              </div>
+              <div class="media-overlay"><span><i class="fa-brands fa-figma"></i> UI/UX Concept</span></div>
+            </div>
+            <div class="case-content">
+              <div class="case-meta"><span>UI/UX</span><span>Figma</span><span>Design System</span></div>
+              <h3>FinTrack — Finance UI/UX Concept</h3>
+              <p class="lang-txt" data-ru="Концепт финансового приложения с понятной аналитикой, целями, расходами и мобильной дизайн-системой." data-en="A finance app concept with clear analytics, goals, expenses and a mobile design system.">Концепт финансового приложения с понятной аналитикой, целями, расходами и мобильной дизайн-системой.</p>
+              <ul class="case-points">
+                <li class="lang-txt" data-ru="User flow, onboarding и ключевые сценарии" data-en="User flow, onboarding and key scenarios">User flow, onboarding и ключевые сценарии</li>
+                <li class="lang-txt" data-ru="Компоненты, состояния и UI-kit" data-en="Components, states and UI kit">Компоненты, состояния и UI-kit</li>
+                <li class="lang-txt" data-ru="Интерфейс, готовый к передаче в разработку" data-en="Dev-ready interface handoff">Интерфейс, готовый к передаче в разработку</li>
+              </ul>
+              <div class="case-actions">
+                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Заказать дизайн" data-en="Order design">Заказать дизайн</a>
+                <a href="#process" class="btn btn-ghost active-hover lang-txt" data-ru="Процесс" data-en="Process">Процесс</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reverse active-hover" data-category="mobile mvp">
+            <div class="case-media mockup-media fitness-media">
+              <div class="mockup-screen">
+                <div class="mockup-header"><span></span><strong>PulseFit</strong><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="product-card"><i class="fa-solid fa-dumbbell"></i><div><strong>Workout Plan</strong><small>Habits, progress, streaks</small></div></div>
+                <div class="mockup-list"><span></span><span></span><span></span></div>
+                <div class="mockup-nav"><i class="fa-solid fa-house"></i><i class="fa-solid fa-calendar"></i><i class="fa-solid fa-chart-simple"></i><i class="fa-solid fa-user"></i></div>
+              </div>
+              <div class="media-overlay"><span><i class="fa-brands fa-flutter"></i> Demo App</span></div>
+            </div>
+            <div class="case-content">
+              <div class="case-meta"><span>Flutter</span><span>Firebase</span><span>Demo</span></div>
+              <h3>PulseFit — Fitness Mobile App</h3>
+              <p class="lang-txt" data-ru="Demo-приложение для тренировок и привычек: прогресс, планы, streaks и быстрые действия." data-en="A demo fitness and habits app: progress, plans, streaks and quick actions.">Demo-приложение для тренировок и привычек: прогресс, планы, streaks и быстрые действия.</p>
+              <ul class="case-points">
+                <li class="lang-txt" data-ru="Mobile-first интерфейс и карточки прогресса" data-en="Mobile-first UI and progress cards">Mobile-first интерфейс и карточки прогресса</li>
+                <li class="lang-txt" data-ru="Состояния пользователя, статистика и привычки" data-en="User states, stats and habits">Состояния пользователя, статистика и привычки</li>
+                <li class="lang-txt" data-ru="Плавные переходы и clean component structure" data-en="Smooth transitions and clean component structure">Плавные переходы и clean component structure</li>
+              </ul>
+              <div class="case-actions">
+                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Обсудить приложение" data-en="Discuss app">Обсудить приложение</a>
+                <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="btn btn-ghost active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="projects" class="reveal" style="margin-top: 100px;">
-        <h2 class="section-title lang-txt" data-ru="Проекты" data-en="Works">Проекты</h2>
-        <div class="project-card active-hover">
-            <div class="project-media">
-                <iframe src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/design/ZCsDRb5d4t9JCmwmrOcYJW/Figma-basics--Copy-?node-id=1669-162202" allowfullscreen></iframe>
-            </div>
-            <div class="project-info">
-                <div style="margin-bottom: 12px;"><span class="tag">Figma</span><span class="tag">UI/UX System</span></div>
-                <h3>Figma Basics Dashboard</h3>
-                <p class="lang-txt" data-ru="Интерактивный прототип и дизайн-система для мобильного банкинга." data-en="Interactive prototype and design system for mobile banking.">Прототип и дизайн-система.</p>
-                <a href="https://www.figma.com/design/ZCsDRb5d4t9JCmwmrOcYJW/Figma-basics--Copy-?node-id=1669-162202" target="_blank" class="btn btn-secondary active-hover" style="margin-top: 20px; width: 100%; justify-content: center;">
-                    <i class="fa-brands fa-figma"></i> <span class="lang-txt" data-ru="Открыть проект" data-en="View Project">Открыть проект</span>
-                </a>
-            </div>
+    <section id="services" class="section scroll-section reveal">
+      <div class="container">
+        <div class="section-head compact">
+          <span class="section-label lang-txt" data-ru="Услуги" data-en="Services">Услуги</span>
+          <h2 class="section-title lang-txt" data-ru="Что Nuvora может сделать для проекта." data-en="What Nuvora can build for your project.">Что Nuvora может сделать для проекта.</h2>
         </div>
+
+        <div class="service-grid service-grid-six">
+          <article class="service-card active-hover" data-tilt data-tilt-max="4">
+            <div class="card-icon web"><i class="fa-solid fa-globe"></i></div>
+            <h3>Websites</h3>
+            <p class="lang-txt" data-ru="Лендинги, сайты и веб-интерфейсы: быстрые, адаптивные и визуально сильные." data-en="Landing pages, websites and web interfaces: fast, responsive and visually strong.">Лендинги, сайты и веб-интерфейсы: быстрые, адаптивные и визуально сильные.</p>
+          </article>
+          <article class="service-card active-hover" data-tilt data-tilt-max="4">
+            <div class="card-icon flutter"><i class="fa-brands fa-flutter"></i></div>
+            <h3>Mobile Apps</h3>
+            <p class="lang-txt" data-ru="Flutter-приложения под iOS и Android: MVP, кабинеты, сервисы и приложения для бизнеса." data-en="Flutter apps for iOS and Android: MVPs, dashboards, services and business apps.">Flutter-приложения под iOS и Android: MVP, кабинеты, сервисы и приложения для бизнеса.</p>
+          </article>
+          <article class="service-card active-hover" data-tilt data-tilt-max="4">
+            <div class="card-icon figma"><i class="fa-brands fa-figma"></i></div>
+            <h3>UI/UX Design</h3>
+            <p class="lang-txt" data-ru="Figma, прототипы, дизайн-системы, компоненты, user flow и dev handoff." data-en="Figma, prototypes, design systems, components, user flows and dev handoff.">Figma, прототипы, дизайн-системы, компоненты, user flow и dev handoff.</p>
+          </article>
+          <article class="service-card active-hover" data-tilt data-tilt-max="4">
+            <div class="card-icon rocket"><i class="fa-solid fa-rocket"></i></div>
+            <h3>MVP Development</h3>
+            <p class="lang-txt" data-ru="Первая рабочая версия продукта: ключевые экраны, логика, интеграции и тестирование." data-en="First working product version: key screens, logic, integrations and testing.">Первая рабочая версия продукта: ключевые экраны, логика, интеграции и тестирование.</p>
+          </article>
+          <article class="service-card active-hover" data-tilt data-tilt-max="4">
+            <div class="card-icon polish"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3>Redesign</h3>
+            <p class="lang-txt" data-ru="Обновление старых сайтов и приложений: визуал, структура, UX, адаптивность и CTA." data-en="Redesign for old websites and apps: visuals, structure, UX, responsiveness and CTA.">Обновление старых сайтов и приложений: визуал, структура, UX, адаптивность и CTA.</p>
+          </article>
+          <article class="service-card active-hover" data-tilt data-tilt-max="4">
+            <div class="card-icon support"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <h3>Product Support</h3>
+            <p class="lang-txt" data-ru="Доработки, новые функции, исправление багов, улучшение интерфейса и поддержка после запуска." data-en="Improvements, new features, bug fixes, UI polish and support after launch.">Доработки, новые функции, исправление багов, улучшение интерфейса и поддержка после запуска.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="reveal">
-        <h2 class="section-title">FAQ</h2>
-        <div class="faq-item active-hover">
-            <div class="faq-question">
-                <span class="lang-txt" data-ru="Сколько времени занимает разработка?" data-en="How long does it take?">Сколько времени занимает разработка?</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-            <div class="faq-answer lang-txt" data-ru="В среднем от 2 недель для MVP до 2 месяцев для полноценного продукта." data-en="Average from 2 weeks for MVP to 2 months for a full product.">От 2 недель до 2 месяцев.</div>
+    <section id="skills" class="section scroll-section reveal">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label lang-txt" data-ru="Capabilities" data-en="Capabilities">Capabilities</span>
+          <h2 class="section-title lang-txt" data-ru="Красивые интерфейсы, сильный frontend и понятная архитектура." data-en="Beautiful interfaces, strong frontend and clear architecture.">Красивые интерфейсы, сильный frontend и понятная архитектура.</h2>
+          <p class="section-subtitle lang-txt" data-ru="Навыки оформлены как студийные возможности: где применяем, что делаем и за счёт чего продукт выглядит цельно." data-en="Skills are shaped as studio capabilities: where we use them, what we build and how the product stays consistent.">Навыки оформлены как студийные возможности: где применяем, что делаем и за счёт чего продукт выглядит цельно.</p>
         </div>
-        <div class="faq-item active-hover">
-            <div class="faq-question">
-                <span class="lang-txt" data-ru="Вы делаете дизайн и код вместе?" data-en="Do you do both design and code?">Вы делаете дизайн и код вместе?</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-            <div class="faq-answer lang-txt" data-ru="Да, я могу закрыть проект под ключ: от идеи и макетов в Figma до готового приложения." data-en="Yes, I can handle a project turnkey: from idea and Figma mockups to a finished app.">Да, проект под ключ.</div>
+
+        <div class="skills-showcase">
+          <article class="skill-card featured active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon web"><i class="fa-solid fa-display"></i></div><span class="skill-level">Web</span></div>
+            <h3>Frontend</h3>
+            <p class="lang-txt" data-ru="Адаптивные сайты, лендинги, UI-блоки, анимации и чистая HTML/CSS/JS-структура." data-en="Responsive websites, landing pages, UI blocks, animations and clean HTML/CSS/JS structure.">Адаптивные сайты, лендинги, UI-блоки, анимации и чистая HTML/CSS/JS-структура.</p>
+            <div class="skill-progress"><span style="width:92%"></span></div>
+            <small>HTML • CSS • JavaScript • Responsive</small>
+          </article>
+
+          <article class="skill-card featured active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon flutter"><i class="fa-brands fa-flutter"></i></div><span class="skill-level">Mobile</span></div>
+            <h3>Flutter</h3>
+            <p class="lang-txt" data-ru="Кроссплатформенные приложения, сложные экраны, навигация, анимации и clean widgets." data-en="Cross-platform apps, complex screens, navigation, animations and clean widgets.">Кроссплатформенные приложения, сложные экраны, навигация, анимации и clean widgets.</p>
+            <div class="skill-progress"><span style="width:94%"></span></div>
+            <small>iOS • Android • UI • Animations</small>
+          </article>
+
+          <article class="skill-card active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon figma"><i class="fa-brands fa-figma"></i></div><span class="skill-level">Design</span></div>
+            <h3>Figma</h3>
+            <p class="lang-txt" data-ru="UI-kit, компоненты, дизайн-системы, интерактивные прототипы и dev handoff." data-en="UI kits, components, design systems, interactive prototypes and dev handoff.">UI-kit, компоненты, дизайн-системы, интерактивные прототипы и dev handoff.</p>
+            <div class="skill-progress"><span style="width:92%"></span></div>
+            <small>Auto Layout • Components • Prototypes</small>
+          </article>
+
+          <article class="skill-card active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon ux"><i class="fa-solid fa-route"></i></div><span class="skill-level">UX</span></div>
+            <h3>Product UX</h3>
+            <p class="lang-txt" data-ru="Сценарии, user flow, логика экранов, CTA, состояния и понятный путь пользователя." data-en="Scenarios, user flows, screen logic, CTA, states and clear user paths.">Сценарии, user flow, логика экранов, CTA, состояния и понятный путь пользователя.</p>
+            <div class="skill-progress"><span style="width:90%"></span></div>
+            <small>Flows • States • Conversion</small>
+          </article>
+
+          <article class="skill-card active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon dart"><i class="fa-solid fa-code"></i></div><span class="skill-level">Core</span></div>
+            <h3>Dart</h3>
+            <p class="lang-txt" data-ru="Чистая логика, модели данных, async/await, работа с API и состояниями." data-en="Clean logic, data models, async/await, APIs and state flows.">Чистая логика, модели данных, async/await, работа с API и состояниями.</p>
+            <div class="skill-progress"><span style="width:90%"></span></div>
+            <small>OOP • Futures • Streams</small>
+          </article>
+
+          <article class="skill-card active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon riverpod"><i class="fa-solid fa-layer-group"></i></div><span class="skill-level">State</span></div>
+            <h3>Riverpod / BLoC</h3>
+            <p class="lang-txt" data-ru="Состояния приложения, разделение логики, понятные flow и поддерживаемая архитектура." data-en="App state, separated logic, clear flows and maintainable architecture.">Состояния приложения, разделение логики, понятные flow и поддерживаемая архитектура.</p>
+            <div class="skill-progress"><span style="width:88%"></span></div>
+            <small>Providers • Events • Async state</small>
+          </article>
+
+          <article class="skill-card active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon firebase"><i class="fa-solid fa-fire"></i></div><span class="skill-level">Backend</span></div>
+            <h3>Firebase</h3>
+            <p class="lang-txt" data-ru="Auth, Firestore, Storage и быстрый backend для MVP, прототипов и demo-приложений." data-en="Auth, Firestore, Storage and fast backend for MVPs, prototypes and demo apps.">Auth, Firestore, Storage и быстрый backend для MVP, прототипов и demo-приложений.</p>
+            <div class="skill-progress"><span style="width:84%"></span></div>
+            <small>Auth • Firestore • Storage</small>
+          </article>
+
+          <article class="skill-card active-hover" data-tilt data-tilt-max="5">
+            <div class="skill-top"><div class="skill-icon api"><i class="fa-solid fa-plug-circle-bolt"></i></div><span class="skill-level">API</span></div>
+            <h3>REST API</h3>
+            <p class="lang-txt" data-ru="Интеграция backend, модели ответа, загрузка, ошибки, empty states и обработка edge cases." data-en="Backend integration, response models, loading, errors, empty states and edge cases.">Интеграция backend, модели ответа, загрузка, ошибки, empty states и обработка edge cases.</p>
+            <div class="skill-progress"><span style="width:86%"></span></div>
+            <small>HTTP • JSON • Error states</small>
+          </article>
         </div>
-        <div class="faq-item active-hover">
-            <div class="faq-question">
-                <span class="lang-txt" data-ru="Какие технологии вы используете?" data-en="What tech stack do you use?">Какие технологии вы используете?</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-            <div class="faq-answer lang-txt" data-ru="Мой основной стек: Flutter, Dart, Firebase, Riverpod и Figma." data-en="My core stack: Flutter, Dart, Firebase, Riverpod, and Figma.">Flutter, Dart, Firebase, Figma.</div>
+
+        <div class="toolbelt">
+          <span>Websites</span><span>Flutter</span><span>Dart</span><span>Figma</span><span>UI/UX</span><span>Riverpod</span><span>BLoC</span><span>Firebase</span><span>REST API</span><span>Git</span><span>Responsive UI</span><span>Animations</span><span>MVP</span><span>Design Systems</span>
         </div>
+      </div>
     </section>
 
-    <section id="contact" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Контакты" data-en="Contact">Контакты</h2>
-        <div class="contact-section">
-            <div data-fs-success><span class="lang-txt" data-ru="Успешно отправлено!" data-en="Message sent successfully!">Успешно отправлено!</span></div>
-            <form id="contact-form" class="contact-form">
-                <input type="text" name="name" placeholder="Name" required class="active-hover">
-                <input type="email" name="email" placeholder="Email" required class="active-hover">
-                <textarea name="message" rows="5" placeholder="Your message..." required class="active-hover"></textarea>
-                <button type="submit" class="btn btn-primary active-hover lang-txt" data-ru="Отправить" data-en="Send Message">Отправить</button>
-            </form>
+    <section id="process" class="section scroll-section reveal">
+      <div class="container">
+        <div class="section-head compact">
+          <span class="section-label lang-txt" data-ru="Процесс" data-en="Process">Процесс</span>
+          <h2 class="section-title lang-txt" data-ru="Понятный путь от идеи до запуска." data-en="A clear path from idea to launch.">Понятный путь от идеи до запуска.</h2>
         </div>
+        <div class="process-grid">
+          <article class="process-card active-hover"><span>01</span><h3>Discovery</h3><p class="lang-txt" data-ru="Разбираем цель, аудиторию, конкурентов, сценарии и ограничения проекта." data-en="We clarify the goal, audience, competitors, flows and project constraints.">Разбираем цель, аудиторию, конкурентов, сценарии и ограничения проекта.</p></article>
+          <article class="process-card active-hover"><span>02</span><h3>Design</h3><p class="lang-txt" data-ru="Собираем структуру, UI-kit, ключевые экраны, прототип и визуальный стиль." data-en="We create structure, UI kit, key screens, prototype and visual style.">Собираем структуру, UI-kit, ключевые экраны, прототип и визуальный стиль.</p></article>
+          <article class="process-card active-hover"><span>03</span><h3>Development</h3><p class="lang-txt" data-ru="Разрабатываем сайт или приложение, подключаем формы, API, состояния и основные модули." data-en="We build the website or app, connect forms, APIs, states and core modules.">Разрабатываем сайт или приложение, подключаем формы, API, состояния и основные модули.</p></article>
+          <article class="process-card active-hover"><span>04</span><h3>Launch</h3><p class="lang-txt" data-ru="Тестируем, полируем интерфейс, исправляем баги и готовим проект к публикации." data-en="We test, polish the interface, fix bugs and prepare the product for release.">Тестируем, полируем интерфейс, исправляем баги и готовим проект к публикации.</p></article>
+        </div>
+      </div>
     </section>
 
-    <footer style="padding: 60px 0; text-align: center; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 80px;">
-        <p>© 2026 Daniel Aslonov. Flutter Developer & Designer.</p>
-    </footer>
-</div>
+    <section id="about" class="section reveal">
+      <div class="container split-grid">
+        <div>
+          <div class="section-head compact left">
+            <span class="section-label lang-txt" data-ru="О студии" data-en="About studio">О студии</span>
+            <h2 class="section-title lang-txt" data-ru="Nuvora — маленькая студия с продуктовым подходом." data-en="Nuvora is a small studio with a product-minded approach.">Nuvora — маленькая студия с продуктовым подходом.</h2>
+          </div>
+          <p class="about-text lang-txt" data-ru="За Nuvora стоит Даниэль: Flutter Developer и UI/UX Designer. Формат студии позволяет делать проекты под ключ: продумать структуру, собрать дизайн, сверстать сайт, разработать приложение и довести MVP до аккуратного запуска." data-en="Nuvora is led by Daniel: a Flutter Developer and UI/UX Designer. The studio format makes it possible to build projects end-to-end: structure, design, website, app development and polished MVP launch.">За Nuvora стоит Даниэль: Flutter Developer и UI/UX Designer. Формат студии позволяет делать проекты под ключ: продумать структуру, собрать дизайн, сверстать сайт, разработать приложение и довести MVP до аккуратного запуска.</p>
+        </div>
+        <div class="github-panel active-hover">
+          <div class="github-head"><i class="fa-brands fa-github"></i><div><strong>@aslonovrgb</strong><small class="lang-txt" data-ru="Свежие репозитории" data-en="Latest repositories">Свежие репозитории</small></div></div>
+          <div id="github-repos-list" class="repo-list">
+            <p class="muted lang-txt" data-ru="Загрузка репозиториев..." data-en="Loading repositories...">Загрузка репозиториев...</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<a href="https://t.me/nenotiiice" class="fab active-hover" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+    <section id="testimonials" class="section reveal">
+      <div class="container">
+        <div class="section-head compact">
+          <span class="section-label lang-txt" data-ru="Принципы" data-en="Principles">Принципы</span>
+          <h2 class="section-title lang-txt" data-ru="Как Nuvora делает проекты аккуратнее." data-en="How Nuvora makes projects feel polished.">Как Nuvora делает проекты аккуратнее.</h2>
+        </div>
+        <div class="testimonial-grid">
+          <article class="testimonial-card active-hover"><i class="fa-solid fa-compass-drafting"></i><p class="lang-txt" data-ru="Сначала структура и сценарии, потом визуал. Так интерфейс выглядит красиво и остаётся понятным." data-en="Structure and user flows come first, visuals come after. This keeps the interface beautiful and understandable.">Сначала структура и сценарии, потом визуал. Так интерфейс выглядит красиво и остаётся понятным.</p><div><strong>UX first</strong><small>Structure before decoration</small></div></article>
+          <article class="testimonial-card active-hover"><i class="fa-solid fa-code"></i><p class="lang-txt" data-ru="Дизайн делается так, чтобы его было реально удобно перенести в код без потери качества." data-en="Design is created in a way that is practical to implement without losing quality.">Дизайн делается так, чтобы его было реально удобно перенести в код без потери качества.</p><div><strong>Design to code</strong><small>Figma → Frontend / Flutter</small></div></article>
+          <article class="testimonial-card active-hover"><i class="fa-solid fa-bolt"></i><p class="lang-txt" data-ru="MVP не должен быть сырым. Даже первая версия должна быть быстрой, аккуратной и понятной." data-en="An MVP should not feel raw. Even the first version should be fast, clean and clear.">MVP не должен быть сырым. Даже первая версия должна быть быстрой, аккуратной и понятной.</p><div><strong>Polished MVP</strong><small>Launch-ready basics</small></div></article>
+        </div>
+      </div>
+    </section>
 
-<script>
-    // --- Custom Cursor ---
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-    document.querySelectorAll('.active-hover').forEach(el => {
-        el.onmouseenter = () => cursor.classList.add('cursor-hover');
-        el.onmouseleave = () => cursor.classList.remove('cursor-hover');
-    });
+    <section id="faq" class="section reveal">
+      <div class="container faq-wrap">
+        <div class="section-head compact left">
+          <span class="section-label">FAQ</span>
+          <h2 class="section-title lang-txt" data-ru="Вопросы перед стартом." data-en="Questions before starting.">Вопросы перед стартом.</h2>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item active-hover">
+            <button class="faq-question"><span class="lang-txt" data-ru="Вы делаете только приложения?" data-en="Do you only build apps?">Вы делаете только приложения?</span><i class="fa-solid fa-plus"></i></button>
+            <div class="faq-answer"><p class="lang-txt" data-ru="Нет. Nuvora делает мобильные приложения, сайты, лендинги, UI/UX-дизайн, MVP, редизайн и поддержку digital-продуктов." data-en="No. Nuvora builds mobile apps, websites, landing pages, UI/UX design, MVPs, redesigns and product support.">Нет. Nuvora делает мобильные приложения, сайты, лендинги, UI/UX-дизайн, MVP, редизайн и поддержку digital-продуктов.</p></div>
+          </article>
+          <article class="faq-item active-hover">
+            <button class="faq-question"><span class="lang-txt" data-ru="Можно заказать только дизайн?" data-en="Can I order only design?">Можно заказать только дизайн?</span><i class="fa-solid fa-plus"></i></button>
+            <div class="faq-answer"><p class="lang-txt" data-ru="Да. Можно заказать UX-структуру, Figma-дизайн, прототип, UI-kit, дизайн-систему или редизайн существующего продукта." data-en="Yes. You can order UX structure, Figma design, prototype, UI kit, design system or redesign of an existing product.">Да. Можно заказать UX-структуру, Figma-дизайн, прототип, UI-kit, дизайн-систему или редизайн существующего продукта.</p></div>
+          </article>
+          <article class="faq-item active-hover">
+            <button class="faq-question"><span class="lang-txt" data-ru="Сколько времени занимает MVP?" data-en="How long does an MVP take?">Сколько времени занимает MVP?</span><i class="fa-solid fa-plus"></i></button>
+            <div class="faq-answer"><p class="lang-txt" data-ru="Обычно от 2 до 6 недель. Срок зависит от количества экранов, интеграций, backend-логики и уровня визуальной проработки." data-en="Usually from 2 to 6 weeks. Timing depends on screens, integrations, backend logic and visual polish.">Обычно от 2 до 6 недель. Срок зависит от количества экранов, интеграций, backend-логики и уровня визуальной проработки.</p></div>
+          </article>
+          <article class="faq-item active-hover">
+            <button class="faq-question"><span class="lang-txt" data-ru="Можно начать с маленькой задачи?" data-en="Can we start with a small task?">Можно начать с маленькой задачи?</span><i class="fa-solid fa-plus"></i></button>
+            <div class="faq-answer"><p class="lang-txt" data-ru="Да. Можно начать с одного экрана, лендинга, UX-аудита, редизайна блока или небольшого Flutter-модуля." data-en="Yes. We can start with one screen, landing page, UX audit, section redesign or a small Flutter module.">Да. Можно начать с одного экрана, лендинга, UX-аудита, редизайна блока или небольшого Flutter-модуля.</p></div>
+          </article>
+          <article class="faq-item active-hover">
+            <button class="faq-question"><span class="lang-txt" data-ru="Работаете удалённо?" data-en="Do you work remotely?">Работаете удалённо?</span><i class="fa-solid fa-plus"></i></button>
+            <div class="faq-answer"><p class="lang-txt" data-ru="Да, работа полностью удалённая. Общение можно вести через Telegram, email или удобный таск-трекер." data-en="Yes, the work is fully remote. Communication can happen via Telegram, email or a convenient task tracker.">Да, работа полностью удалённая. Общение можно вести через Telegram, email или удобный таск-трекер.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    // --- Theme & Lang ---
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.onclick = () => {
-        const isDark = document.body.getAttribute('data-theme') === 'dark';
-        document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-    };
+    <section id="contact" class="section contact-section scroll-section reveal">
+      <div class="container contact-card">
+        <div>
+          <span class="section-label lang-txt" data-ru="Связаться" data-en="Contact">Связаться</span>
+          <h2 class="contact-title lang-txt" data-ru="Есть идея для сайта, приложения или MVP? Давайте превратим её в продукт." data-en="Have an idea for a website, app or MVP? Let's turn it into a product.">Есть идея для сайта, приложения или MVP? Давайте превратим её в продукт.</h2>
+          <p class="contact-text lang-txt" data-ru="Напишите пару предложений о задаче, сроках и желаемом результате. Nuvora предложит понятный следующий шаг: аудит, структура, дизайн или разработка." data-en="Write a few lines about the task, timeline and desired result. Nuvora will suggest a clear next step: audit, structure, design or development.">Напишите пару предложений о задаче, сроках и желаемом результате. Nuvora предложит понятный следующий шаг: аудит, структура, дизайн или разработка.</p>
+          <div class="contact-links">
+            <a href="mailto:nenotiiice@gmail.com" class="active-hover"><i class="fa-regular fa-envelope"></i> nenotiiice@gmail.com</a>
+            <a href="https://t.me/nenotiiice" target="_blank" rel="noopener" class="active-hover"><i class="fa-brands fa-telegram"></i> @nenotiiice</a>
+          </div>
+        </div>
 
-    const langBtn = document.getElementById('lang-btn');
-    let currentLang = 'ru';
-    langBtn.onclick = () => {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
-        langBtn.textContent = currentLang.toUpperCase();
-        document.querySelectorAll('.lang-txt').forEach(el => el.textContent = el.getAttribute(`data-${currentLang}`));
-    };
+        <form id="contact-form" class="contact-form" action="https://formspree.io/f/mbdwbjlo" method="POST">
+          <label>
+            <span class="lang-txt" data-ru="Имя" data-en="Name">Имя</span>
+            <input type="text" name="name" required class="active-hover" data-ru-placeholder="Как к вам обращаться?" data-en-placeholder="How should we call you?" placeholder="Как к вам обращаться?">
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required class="active-hover" placeholder="you@example.com">
+          </label>
+          <label>
+            <span class="lang-txt" data-ru="Что нужно сделать?" data-en="What should we build?">Что нужно сделать?</span>
+            <textarea name="message" rows="5" required class="active-hover" data-ru-placeholder="Сайт, приложение, дизайн, MVP, редизайн..." data-en-placeholder="Website, app, design, MVP, redesign..." placeholder="Сайт, приложение, дизайн, MVP, редизайн..."></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary active-hover">
+            <i class="fa-regular fa-paper-plane"></i>
+            <span class="lang-txt" data-ru="Отправить заявку" data-en="Send request">Отправить заявку</span>
+          </button>
+          <p id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
 
-    // --- FAQ ---
-    document.querySelectorAll('.faq-question').forEach(q => {
-        q.onclick = () => q.parentElement.classList.toggle('active');
-    });
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#top" class="logo active-hover"><span class="logo-mark">N</span><span>Nuvora</span></a>
+        <p class="lang-txt" data-ru="Digital-студия для сайтов, мобильных приложений, UI/UX и MVP. Nuvora Studio by Savchenko Daniil." data-en="Digital studio for websites, mobile apps, UI/UX and MVPs. Nuvora Studio by Savchenko Daniil.">Digital-студия для сайтов, мобильных приложений, UI/UX и MVP. Nuvora Studio by Savchenko Daniil.</p>
+      </div>
+      <div>
+        <h4 class="lang-txt" data-ru="Навигация" data-en="Navigation">Навигация</h4>
+        <a href="#projects" class="footer-link active-hover lang-txt" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+        <a href="#services" class="footer-link active-hover lang-txt" data-ru="Услуги" data-en="Services">Услуги</a>
+        <a href="#skills" class="footer-link active-hover lang-txt" data-ru="Навыки" data-en="Capabilities">Навыки</a>
+        <a href="#contact" class="footer-link active-hover lang-txt" data-ru="Контакты" data-en="Contact">Контакты</a>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="footer-link active-hover">GitHub</a>
+        <a href="https://t.me/nenotiiice" target="_blank" rel="noopener" class="footer-link active-hover">Telegram</a>
+        <a href="mailto:nenotiiice@gmail.com" class="footer-link active-hover">Email</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Nuvora Studio. <span class="lang-txt" data-ru="Все права защищены." data-en="All rights reserved.">Все права защищены.</span></p>
+      <a href="#top" class="to-top active-hover" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+  </footer>
 
-    // --- Scroll Logic ---
-    window.onscroll = () => {
-        let winScroll = document.documentElement.scrollTop;
-        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        document.getElementById("myBar").style.width = (winScroll / height) * 100 + "%";
-    };
+  <a href="https://t.me/nenotiiice" class="fab active-hover" target="_blank" rel="noopener" aria-label="Telegram contact">
+    <i class="fa-brands fa-telegram"></i>
+  </a>
 
-    const observer = new IntersectionObserver((es) => {
-        es.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
-
-    // --- Formspree AJAX ---
-    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-    formspree('initForm', { formElement: '#contact-form', formId: 'mbdwbjlo' });
-</script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
