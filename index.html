@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     
     <style>
-        /* --- CSS ПЕРЕМЕННЫЕ (ТЕМЫ) --- */
+        /* --- ПЕРЕМЕННЫЕ ТЕМЫ --- */
         :root {
             --bg: #0f172a;
             --card: #1e293b;
@@ -46,7 +46,7 @@
         }
         .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
         
-        /* 1. Progress Bar */
+        /* Progress Bar */
         .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; }
         .progress-bar { height: 100%; background: var(--accent); width: 0%; box-shadow: 0 0 10px var(--accent); }
 
@@ -68,7 +68,7 @@
             cursor: pointer; font-weight: bold; font-size: 0.8rem; 
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero { padding: 60px 0; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
         .hero-text { flex: 1.2; min-width: 300px; }
         .hero-animation { flex: 0.8; display: flex; justify-content: center; min-width: 300px; }
@@ -80,7 +80,6 @@
         }
 
         /* Buttons */
-        .contact-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
         .btn { 
             padding: 12px 24px; border-radius: 10px; text-decoration: none; 
             font-weight: 600; display: inline-flex; align-items: center; gap: 10px; 
@@ -90,11 +89,10 @@
         .btn-secondary { border: 1px solid var(--border); color: var(--text); background: var(--card); }
         .btn:hover { transform: translateY(-3px); opacity: 0.9; }
 
-        /* Sections Header */
+        /* Sections */
         .section-title { font-size: 1.8rem; margin: 80px 0 40px; display: flex; align-items: center; gap: 15px; }
         .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
         
-        /* Skills & GitHub */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; margin-bottom: 30px; }
         .skill-card { 
             background: var(--card); padding: 20px; border-radius: 15px; 
@@ -111,41 +109,34 @@
             content: ''; position: absolute; left: -37px; top: 6px; width: 12px; height: 12px; 
             background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); 
         }
-        .timeline-date { color: var(--accent); font-weight: 700; font-size: 0.85rem; margin-bottom: 5px; }
 
         /* Projects */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .project-card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
-        .project-media { width: 100%; height: 220px; background: #000; overflow: hidden; position: relative; }
-        .project-media video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s; }
-        .project-card:hover video { opacity: 1; transform: scale(1.05); }
+        .project-media { width: 100%; height: 220px; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--text-dim); }
+        .project-media i { font-size: 4rem; opacity: 0.2; }
         .project-info { padding: 25px; }
-        .project-tags { display: flex; gap: 8px; margin-bottom: 12px; }
-        .tag { font-size: 0.7rem; padding: 4px 10px; background: var(--accent-glow); color: var(--accent); border-radius: 6px; font-weight: bold; }
 
-        /* FAQ Accordion */
+        /* FAQ */
         .faq-item { background: var(--card); border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); overflow: hidden; }
         .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
         .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.3s ease-out; color: var(--text-dim); }
         .faq-item.active .faq-answer { padding: 0 20px 20px; max-height: 200px; }
         .faq-item.active i { transform: rotate(180deg); color: var(--accent); }
 
-        /* Contact Section */
-        .contact-section { background: var(--card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-top: 20px; }
+        /* Formspree Section */
+        .contact-section { background: var(--card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); }
         .contact-form { display: grid; gap: 20px; }
         .contact-form input, .contact-form textarea { 
             width: 100%; padding: 15px; background: var(--bg); 
             border: 1px solid var(--border); color: var(--text); 
             border-radius: 12px; font-family: inherit; transition: 0.3s; 
         }
-        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; }
-
-        /* Status Messages for Form */
-        [data-fs-success], [data-fs-error] { display: none; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; font-weight: bold; }
+        [data-fs-success], [data-fs-error] { display: none; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
         [data-fs-success] { background: rgba(56, 189, 248, 0.2); color: var(--accent); }
         [data-fs-error] { background: rgba(248, 113, 113, 0.2); color: #f87171; }
 
-        /* FAB & Footer */
+        /* FAB */
         .fab { 
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
             background: var(--accent); color: white; border-radius: 50%; 
@@ -153,15 +144,10 @@
             font-size: 24px; box-shadow: 0 10px 25px var(--accent-glow); 
             cursor: pointer; z-index: 999; transition: var(--transition); text-decoration: none; 
         }
-        .fab:hover { transform: scale(1.1) rotate(15deg); }
-        
-        footer { text-align: center; padding: 60px 0; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 60px; font-size: 0.9rem; }
 
-        /* Animations */
+        /* Animation class */
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) { .hero { text-align: center; justify-content: center; } .contact-btns { justify-content: center; } }
     </style>
 </head>
 <body data-theme="dark">
@@ -172,7 +158,7 @@
         <div class="container header-inner">
             <a href="#" class="logo">DANIEL.DEV</a>
             <nav>
-                <button id="theme-toggle" class="icon-btn" title="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+                <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
                 <button id="lang-btn" class="lang-btn">EN</button>
             </nav>
         </div>
@@ -181,16 +167,16 @@
 <div class="container">
     <section class="hero reveal">
         <div class="hero-text">
-            <span class="badge lang-txt" data-ru="Доступен для проектов" data-en="Available for Projects">Доступен для проектов</span>
-            <h1 class="lang-txt" data-ru="Создаю мобильные приложения будущего" data-en="Building the Future of Mobile Apps">Создаю мобильные приложения будущего</h1>
+            <span class="badge lang-txt" data-ru="Доступен для работы" data-en="Available for Hire">Доступен для работы</span>
+            <h1 class="lang-txt" data-ru="Код и Дизайн" data-en="Code & Design">Код и Дизайн</h1>
             <p class="lang-txt" 
-               data-ru="Flutter разработчик и UI/UX дизайнер. Превращаю идеи в высокопроизводительные приложения с акцентом на чистый код и современный дизайн." 
-               data-en="Flutter Developer & UI/UX Designer. Turning ideas into high-performance applications with a focus on clean code and modern design.">
-               Flutter разработчик и UI/UX дизайнер. Превращаю идеи в высокопроизводительные приложения.
+               data-ru="Создаю Flutter-приложения с душой. Figma-дизайнер по утрам, разработчик по вечерам." 
+               data-en="Creating Flutter apps with soul. Figma designer by morning, developer by evening.">
+               Создаю Flutter-приложения с душой.
             </p>
-            <div class="contact-btns">
+            <div class="contact-btns" style="margin-top: 30px; display: flex; gap: 15px;">
                 <a href="#contact" class="btn btn-primary lang-txt" data-ru="Обсудить проект" data-en="Let's Talk">Обсудить проект</a>
-                <a href="resume.pdf" class="btn btn-secondary"><i class="fa-solid fa-file-pdf"></i> <span class="lang-txt" data-ru="Резюме" data-en="CV / Resume">Резюме</span></a>
+                <a href="https://t.me/nenotiiice" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-telegram"></i></a>
             </div>
         </div>
         <div class="hero-animation">
@@ -199,101 +185,75 @@
     </section>
 
     <section class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Технологии" data-en="Tech Stack">Технологии</h2>
+        <h2 class="section-title lang-txt" data-ru="Навыки" data-en="Skills">Навыки</h2>
         <div class="skills-grid">
             <div class="skill-card"><i class="fa-brands fa-flutter"></i><span>Flutter</span></div>
             <div class="skill-card"><i class="fa-solid fa-code"></i><span>Dart</span></div>
-            <div class="skill-card"><i class="fa-solid fa-fire"></i><span>Firebase</span></div>
             <div class="skill-card"><i class="fa-brands fa-figma"></i><span>Figma</span></div>
-            <div class="skill-card"><i class="fa-solid fa-database"></i><span>REST API</span></div>
-            <div class="skill-card"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
+            <div class="skill-card"><i class="fa-solid fa-fire"></i><span>Firebase</span></div>
         </div>
         <img class="github-stats" src="https://github-readme-stats.vercel.app/api?username=aslonovrgb&show_icons=true&theme=transparent&hide_border=true&title_color=38bdf8&text_color=94a3b8&icon_color=38bdf8" alt="GitHub Stats">
     </section>
 
-    <section class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Опыт работы" data-en="Experience">Опыт работы</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">2023 — Present</div>
-                <h3 class="lang-txt" data-ru="Middle Flutter Developer (Freelance)" data-en="Middle Flutter Developer (Freelance)">Middle Flutter Developer (Freelance)</h3>
-                <p class="lang-txt" data-ru="Разработка архитектуры приложений, интеграция сложных API и публикация в App Store / Google Play." data-en="App architecture design, complex API integration, and publishing to App Store / Google Play.">Разработка архитектуры приложений и публикация в сторы.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2022 — 2023</div>
-                <h3 class="lang-txt" data-ru="Junior Developer / UI Designer" data-en="Junior Developer / UI Designer">Junior Developer / UI Designer</h3>
-                <p class="lang-txt" data-ru="Создание интерактивных прототипов в Figma и их реализация на Flutter." data-en="Creating interactive prototypes in Figma and implementing them with Flutter.">Создание прототипов в Figma и реализация на Flutter.</p>
-            </div>
-        </div>
-    </section>
-
     <section id="projects" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Проекты" data-en="Projects">Проекты</h2>
+        <h2 class="section-title lang-txt" data-ru="Мои работы" data-en="My Projects">Мои работы</h2>
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-media">
-                    <video autoplay muted loop playsinline>
-                        <source src="https://cdn.pixabay.com/video/2021/04/12/70851-536480838_large.mp4" type="video/mp4">
-                    </video>
+                    <i class="fa-brands fa-figma"></i>
                 </div>
                 <div class="project-info">
-                    <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Riverpod</span></div>
-                    <h3>Fintech Mobile Dashboard</h3>
-                    <a href="#" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem; margin-top: 15px;"><i class="fa-brands fa-figma"></i> Figma View</a>
+                    <div class="project-tags"><span class="tag">UI/UX</span><span class="tag">Figma</span></div>
+                    <h3 class="lang-txt" data-ru="Основы Figma" data-en="Figma Basics">Основы Figma</h3>
+                    <p class="lang-txt" data-ru="Дизайн-система и прототип мобильного приложения." data-en="Design system and mobile app prototype.">Дизайн-система и прототип.</p>
+                    
+                    <a href="https://www.figma.com/design/ZCsDRb5d4t9JCmwmrOcYJW/Figma-basics--Copy-?node-id=1669-162202&t=qtr2d7V5ijfLxEvw-1" 
+                       target="_blank" 
+                       class="btn btn-secondary" 
+                       style="padding: 8px 16px; font-size: 0.85rem; margin-top: 15px;">
+                        <i class="fa-brands fa-figma"></i> 
+                        <span class="lang-txt" data-ru="Открыть в Figma" data-en="Open in Figma">Открыть в Figma</span>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <section class="reveal">
-        <h2 class="section-title lang-txt" data-ru="FAQ" data-en="FAQ">FAQ</h2>
+        <h2 class="section-title">FAQ</h2>
         <div class="faq-item">
             <div class="faq-question">
-                <span class="lang-txt" data-ru="Сколько времени занимает разработка?" data-en="How long does development take?">Сколько времени занимает разработка?</span>
+                <span class="lang-txt" data-ru="Работаете ли вы с дизайном?" data-en="Do you do design?">Работаете ли вы с дизайном?</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
-            <div class="faq-answer lang-txt" data-ru="Зависит от сложности. Простой MVP создается за 2-3 недели." data-en="Depends on complexity. A simple MVP takes 2-3 weeks.">Зависит от сложности.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">
-                <span class="lang-txt" data-ru="Вы делаете дизайн?" data-en="Do you provide UI/UX design?">Вы делаете дизайн?</span>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <div class="faq-answer lang-txt" data-ru="Да, я разрабатываю полный дизайн-макет в Figma перед кодингом." data-en="Yes, I develop a full design mockup in Figma before coding.">Да, я делаю дизайн в Figma.</div>
+            <div class="faq-answer lang-txt" data-ru="Да, я создаю полные UI/UX макеты в Figma перед разработкой." data-en="Yes, I create full UI/UX mockups in Figma before development.">Да, я делаю дизайн в Figma.</div>
         </div>
     </section>
 
     <section id="contact" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Связаться со мной" data-en="Get in Touch">Связаться со мной</h2>
+        <h2 class="section-title lang-txt" data-ru="Написать мне" data-en="Contact Me">Написать мне</h2>
         <div class="contact-section">
-            
-            <div data-fs-success>
-                <span class="lang-txt" data-ru="Спасибо! Ваше сообщение отправлено." data-en="Thanks! Your message has been sent.">Спасибо! Ваше сообщение отправлено.</span>
-            </div>
-            <div data-fs-error>
-                <span class="lang-txt" data-ru="Ошибка! Попробуйте позже." data-en="Error! Please try again later.">Ошибка! Попробуйте позже.</span>
-            </div>
+            <div data-fs-success><b class="lang-txt" data-ru="Отправлено!" data-en="Sent!">Отправлено!</b></div>
+            <div data-fs-error><b class="lang-txt" data-ru="Ошибка!" data-en="Error!">Ошибка!</b></div>
 
             <form id="contact-form" class="contact-form">
                 <input type="text" name="name" placeholder="Name" data-fs-field required>
                 <input type="email" name="email" placeholder="Email" data-fs-field required>
-                <textarea name="message" rows="5" placeholder="Your Message" data-fs-field required></textarea>
-                <button type="submit" data-fs-submit-btn class="btn btn-primary lang-txt" data-ru="Отправить" data-en="Send Message">
-                    Отправить
-                </button>
+                <textarea name="message" rows="5" placeholder="Message" data-fs-field required></textarea>
+                <button type="submit" data-fs-submit-btn class="btn btn-primary lang-txt" data-ru="Отправить" data-en="Send">Отправить</button>
             </form>
         </div>
     </section>
 
-    <footer>
-        <p>© 2026 Daniel Aslonov. <span class="lang-txt" data-ru="Сделано на Flutter-вайбе" data-en="Built with Flutter mindset">Сделано на Flutter-вайбе</span></p>
+    <footer style="text-align: center; padding: 40px; color: var(--text-dim);">
+        <p>© 2026 Daniel Aslonov. Flutter & Design.</p>
     </footer>
 </div>
 
-<a href="https://t.me/nenotiiice" class="fab" target="_blank" title="Write on Telegram"><i class="fa-brands fa-telegram"></i></a>
+<a href="https://t.me/nenotiiice" class="fab" target="_blank"><i class="fa-brands fa-telegram"></i></a>
 
 <script>
-    // 1. Тема (Dark/Light)
+    // Тема
     const themeBtn = document.getElementById('theme-toggle');
     themeBtn.addEventListener('click', () => {
         const isDark = document.body.getAttribute('data-theme') === 'dark';
@@ -301,7 +261,7 @@
         themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
     });
 
-    // 2. Язык (RU/EN)
+    // Язык
     const langBtn = document.getElementById('lang-btn');
     let currentLang = 'ru';
     langBtn.addEventListener('click', () => {
@@ -312,34 +272,27 @@
         });
     });
 
-    // 3. Аккордеон FAQ
-    document.querySelectorAll('.faq-question').forEach(item => {
-        item.addEventListener('click', () => {
-            item.parentElement.classList.toggle('active');
-        });
+    // Аккордеон
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
     });
 
-    // 4. Шкала прогресса скролла
+    // Скролл
     window.onscroll = () => {
         let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         document.getElementById("myBar").style.width = (winScroll / height) * 100 + "%";
     };
 
-    // 5. Анимация появления (Intersection Observer)
+    // Анимация появления
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('active');
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // 6. Инициализация Formspree AJAX
+    // Formspree AJAX
     window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-    formspree('initForm', { 
-        formElement: '#contact-form', 
-        formId: 'mbdwbjlo' 
-    });
+    formspree('initForm', { formElement: '#contact-form', formId: 'mbdwbjlo' });
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
