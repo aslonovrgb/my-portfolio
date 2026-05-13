@@ -3,294 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel | Flutter Developer & Designer</title>
+    <title>Daniel Aslonov | Flutter Expert & Designer</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
     <style>
-        /* --- ПЕРЕМЕННЫЕ ТЕМЫ --- */
+        /* --- ПЕРЕМЕННЫЕ И ТЕМЫ --- */
         :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
+            --bg: #0b0f1a; 
+            --card: rgba(30, 41, 59, 0.7); 
+            --text: #f8fafc; 
             --text-dim: #94a3b8;
-            --accent: #38bdf8;
+            --accent: #38bdf8; 
             --accent-glow: rgba(56, 189, 248, 0.3);
-            --border: rgba(255, 255, 255, 0.05);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border: rgba(255, 255, 255, 0.08); 
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             --git-inv: 0.9;
         }
 
         [data-theme="light"] {
-            --bg: #f1f5f9;
-            --card: #ffffff;
-            --text: #1e293b;
+            --bg: #f8fafc; 
+            --card: rgba(255, 255, 255, 0.8); 
+            --text: #0f172a; 
             --text-dim: #64748b;
-            --accent: #0284c7;
-            --accent-glow: rgba(2, 132, 199, 0.2);
-            --border: rgba(0, 0, 0, 0.05);
+            --accent: #0284c7; 
+            --accent-glow: rgba(2, 132, 199, 0.15); 
+            --border: rgba(0, 0, 0, 0.08);
             --git-inv: 0;
         }
 
-        /* --- БАЗОВЫЕ СТИЛИ --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* --- БАЗОВЫЕ НАСТРОЙКИ --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Свой курсор */
+        
+        html { scroll-behavior: smooth; }
+
         body { 
             font-family: 'Inter', sans-serif; 
             background: var(--bg); 
             color: var(--text); 
-            transition: background 0.5s ease, color 0.5s ease; 
+            transition: background 0.5s ease; 
             overflow-x: hidden; 
-            line-height: 1.6; 
+            line-height: 1.6;
+            /* Сетка на фоне */
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
+
+        /* --- Custom Cursor --- */
+        #cursor {
+            position: fixed; width: 20px; height: 20px; background: var(--accent);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            mix-blend-mode: difference; transition: transform 0.15s ease-out, background 0.3s;
+        }
+        .cursor-hover { transform: scale(3.5); background: rgba(255,255,255,0.2) !important; }
+
         /* Progress Bar */
-        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 2000; }
-        .progress-bar { height: 100%; background: var(--accent); width: 0%; box-shadow: 0 0 10px var(--accent); }
+        .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent); z-index: 2000; width: 0%; box-shadow: 0 0 15px var(--accent); }
 
         /* Header */
         header { 
-            padding: 15px 0; position: sticky; top: 0; z-index: 1000; 
-            background: var(--bg); backdrop-filter: blur(12px); 
-            border-bottom: 1px solid var(--border); 
+            padding: 20px 0; position: sticky; top: 0; z-index: 1000; 
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); 
         }
         .header-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.4rem; letter-spacing: -1px; }
-        nav { display: flex; align-items: center; gap: 15px; }
-        
-        .icon-btn { background: none; border: none; color: var(--text); cursor: pointer; font-size: 1.1rem; transition: var(--transition); padding: 5px; }
-        .icon-btn:hover { color: var(--accent); transform: scale(1.1); }
-        .lang-btn { 
-            background: var(--accent-glow); border: 1px solid var(--accent); 
-            color: var(--accent); padding: 4px 10px; border-radius: 6px; 
-            cursor: pointer; font-weight: bold; font-size: 0.8rem; 
-        }
+        .logo { font-weight: 900; color: var(--accent); text-decoration: none; font-size: 1.5rem; letter-spacing: -1px; }
 
-        /* Hero */
-        .hero { padding: 60px 0; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
-        .hero-text { flex: 1.2; min-width: 300px; }
-        .hero-animation { flex: 0.8; display: flex; justify-content: center; min-width: 300px; }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); margin-bottom: 20px; font-weight: 800; line-height: 1.1; }
-        .badge { 
-            background: var(--accent-glow); padding: 6px 15px; border-radius: 20px; 
-            color: var(--accent); font-size: 0.75rem; font-weight: bold; 
-            text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 15px;
-        }
+        /* Hero Section */
+        .hero { padding: 100px 0; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .hero-text { flex: 1.2; min-width: 320px; }
+        .hero h1 { font-size: clamp(2.8rem, 8vw, 4.2rem); font-weight: 900; line-height: 1; margin-bottom: 25px; }
+        .hero h1 span { color: var(--accent); }
+        .badge { background: var(--accent-glow); padding: 6px 15px; border-radius: 20px; color: var(--accent); font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 15px; }
 
         /* Buttons */
         .btn { 
-            padding: 12px 24px; border-radius: 10px; text-decoration: none; 
-            font-weight: 600; display: inline-flex; align-items: center; gap: 10px; 
-            transition: var(--transition); border: none; cursor: pointer; font-family: inherit;
+            padding: 15px 35px; border-radius: 14px; text-decoration: none; font-weight: 700; 
+            display: inline-flex; align-items: center; gap: 12px; transition: var(--transition); border: none;
         }
-        .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 15px var(--accent-glow); }
-        .btn-secondary { border: 1px solid var(--border); color: var(--text); background: var(--card); }
-        .btn:hover { transform: translateY(-3px); opacity: 0.9; }
+        .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 25px var(--accent-glow); }
+        .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+        .btn:hover { transform: translateY(-5px); filter: brightness(1.1); }
 
-        /* Sections */
-        .section-title { font-size: 1.8rem; margin: 80px 0 40px; display: flex; align-items: center; gap: 15px; }
+        /* Services */
+        .section-title { font-size: 2rem; margin: 80px 0 40px; display: flex; align-items: center; gap: 20px; }
         .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
         
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .skill-card { 
-            background: var(--card); padding: 20px; border-radius: 15px; 
-            text-align: center; border: 1px solid var(--border); transition: var(--transition); 
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .service-card { 
+            background: var(--card); padding: 40px; border-radius: 28px; border: 1px solid var(--border);
+            backdrop-filter: blur(10px); transition: var(--transition);
         }
-        .skill-card i { font-size: 2rem; color: var(--accent); margin-bottom: 10px; display: block; }
-        .skill-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .github-stats { width: 100%; border-radius: 15px; filter: invert(var(--git-inv)); margin-top: 20px; transition: 0.5s; }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--accent); background: var(--accent-glow); }
+        .service-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
 
-        /* Timeline */
-        .timeline { position: relative; padding-left: 30px; border-left: 2px solid var(--card); }
+        /* Experience Timeline */
+        .timeline { position: relative; padding-left: 30px; border-left: 2px solid var(--border); margin-bottom: 50px; }
         .timeline-item { position: relative; margin-bottom: 40px; }
-        .timeline-item::before { 
-            content: ''; position: absolute; left: -37px; top: 6px; width: 12px; height: 12px; 
-            background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); 
-        }
+        .timeline-item::before { content: ''; position: absolute; left: -37px; top: 5px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+        .timeline-date { color: var(--accent); font-weight: 800; font-size: 0.9rem; margin-bottom: 5px; }
 
-        /* Projects */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .project-card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
-        .project-media { width: 100%; height: 220px; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--text-dim); }
-        .project-media i { font-size: 4rem; opacity: 0.2; }
-        .project-info { padding: 25px; }
+        /* Projects (Figma Embed) */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .project-card { background: var(--card); border-radius: 30px; overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
+        .project-media { height: 320px; background: #000; position: relative; }
+        .project-media iframe { width: 100%; height: 100%; border: none; }
+        .project-info { padding: 30px; }
+        .tag { font-size: 0.75rem; padding: 5px 12px; background: var(--accent-glow); color: var(--accent); border-radius: 8px; font-weight: 700; margin-right: 8px; }
+
+        /* GitHub Stats */
+        .github-stats { width: 100%; border-radius: 24px; filter: invert(var(--git-inv)); margin-top: 40px; transition: 0.5s; border: 1px solid var(--border); }
 
         /* FAQ */
-        .faq-item { background: var(--card); border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); overflow: hidden; }
-        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
-        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.3s ease-out; color: var(--text-dim); }
-        .faq-item.active .faq-answer { padding: 0 20px 20px; max-height: 200px; }
+        .faq-item { background: var(--card); border-radius: 20px; margin-bottom: 15px; border: 1px solid var(--border); transition: var(--transition); }
+        .faq-question { padding: 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+        .faq-answer { padding: 0 25px; max-height: 0; overflow: hidden; transition: 0.4s ease; color: var(--text-dim); }
+        .faq-item.active .faq-answer { padding-bottom: 25px; max-height: 300px; }
         .faq-item.active i { transform: rotate(180deg); color: var(--accent); }
 
-        /* Formspree Section */
-        .contact-section { background: var(--card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); }
-        .contact-form { display: grid; gap: 20px; }
+        /* Contact Section */
+        .contact-section { background: var(--card); padding: 45px; border-radius: 35px; border: 1px solid var(--border); backdrop-filter: blur(15px); }
         .contact-form input, .contact-form textarea { 
-            width: 100%; padding: 15px; background: var(--bg); 
-            border: 1px solid var(--border); color: var(--text); 
-            border-radius: 12px; font-family: inherit; transition: 0.3s; 
+            width: 100%; padding: 18px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); 
+            color: var(--text); border-radius: 16px; margin-bottom: 15px; font-family: inherit; transition: 0.3s;
         }
-        [data-fs-success], [data-fs-error] { display: none; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
-        [data-fs-success] { background: rgba(56, 189, 248, 0.2); color: var(--accent); }
-        [data-fs-error] { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; background: rgba(0,0,0,0.3); }
+        
+        [data-fs-success], [data-fs-error] { display: none; padding: 20px; border-radius: 16px; text-align: center; margin-bottom: 20px; font-weight: 700; }
+        [data-fs-success] { background: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid var(--accent); }
 
         /* FAB */
-        .fab { 
-            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
-            background: var(--accent); color: white; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 24px; box-shadow: 0 10px 25px var(--accent-glow); 
-            cursor: pointer; z-index: 999; transition: var(--transition); text-decoration: none; 
-        }
+        .fab { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 1000; box-shadow: 0 15px 30px var(--accent-glow); text-decoration: none; transition: 0.3s; }
 
-        /* Animation class */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) { * { cursor: auto !important; } #cursor { display: none; } .hero { text-align: center; justify-content: center; } }
     </style>
 </head>
 <body data-theme="dark">
 
-    <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+    <div id="cursor"></div>
+    <div class="progress-bar" id="myBar"></div>
 
     <header>
         <div class="container header-inner">
-            <a href="#" class="logo">DANIEL.DEV</a>
-            <nav>
-                <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
-                <button id="lang-btn" class="lang-btn">EN</button>
-            </nav>
+            <a href="#" class="logo active-hover">DANIEL.DEV</a>
+            <div style="display:flex; gap:15px; align-items: center;">
+                <button id="theme-toggle" class="active-hover" style="background:none; border:none; color:var(--text); font-size:1.3rem;"><i class="fa-solid fa-moon"></i></button>
+                <button id="lang-btn" class="lang-btn active-hover">EN</button>
+            </div>
         </div>
     </header>
 
 <div class="container">
     <section class="hero reveal">
         <div class="hero-text">
-            <span class="badge lang-txt" data-ru="Доступен для работы" data-en="Available for Hire">Доступен для работы</span>
-            <h1 class="lang-txt" data-ru="Код и Дизайн" data-en="Code & Design">Код и Дизайн</h1>
-            <p class="lang-txt" 
-               data-ru="Создаю Flutter-приложения с душой. Figma-дизайнер по утрам, разработчик по вечерам." 
-               data-en="Creating Flutter apps with soul. Figma designer by morning, developer by evening.">
-               Создаю Flutter-приложения с душой.
-            </p>
-            <div class="contact-btns" style="margin-top: 30px; display: flex; gap: 15px;">
-                <a href="#contact" class="btn btn-primary lang-txt" data-ru="Обсудить проект" data-en="Let's Talk">Обсудить проект</a>
-                <a href="https://t.me/nenotiiice" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-telegram"></i></a>
+            <div class="badge lang-txt" data-ru="Доступен для новых проектов" data-en="Available for New Projects">Доступен для новых проектов</div>
+            <h1>Digital <span>Products</span> Designer</h1>
+            <p class="lang-txt" data-ru="Привет! Я Даниэль. Специализируюсь на создании высокопроизводительных Flutter-приложений и современных интерфейсов в Figma." data-en="Hi! I'm Daniel. I specialize in building high-performance Flutter applications and modern interfaces in Figma.">Я создаю мобильные приложения и современный дизайн.</p>
+            <div style="margin-top: 35px; display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="#contact" class="btn btn-primary active-hover lang-txt" data-ru="Начать проект" data-en="Start a Project">Начать проект</a>
+                <a href="https://t.me/nenotiiice" target="_blank" class="btn btn-secondary active-hover"><i class="fa-brands fa-telegram"></i> Telegram</a>
             </div>
         </div>
         <div class="hero-animation">
-            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_m6cu96.json" background="transparent" speed="1" style="width: 320px; height: 320px;" loop autoplay></lottie-player>
+            <dotlottie-player src="https://lottie.host/7e049103-6254-464a-923c-74a686616429/Z1k8nAs5Qh.json" background="transparent" speed="1" style="width: 100%; max-width: 450px;" loop autoplay></dotlottie-player>
         </div>
     </section>
 
     <section class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Навыки" data-en="Skills">Навыки</h2>
-        <div class="skills-grid">
-            <div class="skill-card"><i class="fa-brands fa-flutter"></i><span>Flutter</span></div>
-            <div class="skill-card"><i class="fa-solid fa-code"></i><span>Dart</span></div>
-            <div class="skill-card"><i class="fa-brands fa-figma"></i><span>Figma</span></div>
-            <div class="skill-card"><i class="fa-solid fa-fire"></i><span>Firebase</span></div>
+        <h2 class="section-title lang-txt" data-ru="Что я делаю" data-en="Expertise">Что я делаю</h2>
+        <div class="services-grid">
+            <div class="service-card active-hover">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <h3 class="lang-txt" data-ru="Flutter Разработка" data-en="Mobile Development">Flutter Разработка</h3>
+                <p class="lang-txt" data-ru="Создание быстрых приложений для iOS и Android с единым кодом." data-en="Building fast, cross-platform apps for iOS and Android.">Кроссплатформенные приложения.</p>
+            </div>
+            <div class="service-card active-hover">
+                <i class="fa-solid fa-bezier-curve"></i>
+                <h3 class="lang-txt" data-ru="UI/UX Дизайн" data-en="Interface Design">UI/UX Дизайн</h3>
+                <p class="lang-txt" data-ru="Проектирование интуитивно понятных интерфейсов в Figma." data-en="Creating intuitive and beautiful interfaces in Figma.">Проектирование в Figma.</p>
+            </div>
+            <div class="service-card active-hover">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3 class="lang-txt" data-ru="Архитектура" data-en="Architecture">Архитектура</h3>
+                <p class="lang-txt" data-ru="Настройка Firebase бэкенда и чистого кода Riverpod/Bloc." data-en="Setting up Firebase backend and clean Riverpod/Bloc code.">Firebase и чистый код.</p>
+            </div>
         </div>
-        <img class="github-stats" src="https://github-readme-stats.vercel.app/api?username=aslonovrgb&show_icons=true&theme=transparent&hide_border=true&title_color=38bdf8&text_color=94a3b8&icon_color=38bdf8" alt="GitHub Stats">
     </section>
 
-    <section id="projects" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Мои работы" data-en="My Projects">Мои работы</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-media">
-                    <i class="fa-brands fa-figma"></i>
-                </div>
-                <div class="project-info">
-                    <div class="project-tags"><span class="tag">UI/UX</span><span class="tag">Figma</span></div>
-                    <h3 class="lang-txt" data-ru="Основы Figma" data-en="Figma Basics">Основы Figma</h3>
-                    <p class="lang-txt" data-ru="Дизайн-система и прототип мобильного приложения." data-en="Design system and mobile app prototype.">Дизайн-система и прототип.</p>
-                    
-                    <a href="https://www.figma.com/design/ZCsDRb5d4t9JCmwmrOcYJW/Figma-basics--Copy-?node-id=1669-162202&t=qtr2d7V5ijfLxEvw-1" 
-                       target="_blank" 
-                       class="btn btn-secondary" 
-                       style="padding: 8px 16px; font-size: 0.85rem; margin-top: 15px;">
-                        <i class="fa-brands fa-figma"></i> 
-                        <span class="lang-txt" data-ru="Открыть в Figma" data-en="Open in Figma">Открыть в Figma</span>
-                    </a>
-                </div>
+    <section class="reveal" style="margin-top: 100px;">
+        <h2 class="section-title lang-txt" data-ru="Опыт" data-en="Experience">Опыт</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2024 — Present</div>
+                <h3 class="lang-txt" data-ru="Middle Flutter Developer & UI Designer" data-en="Middle Flutter Developer & UI Designer">Middle Flutter Developer</h3>
+                <p class="lang-txt" data-ru="Проектирование сложных систем и интеграция API." data-en="Architecting complex systems and API integration.">Сложные системы и API.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2023</div>
+                <h3 class="lang-txt" data-ru="Junior Developer" data-en="Junior Developer">Junior Developer</h3>
+                <p class="lang-txt" data-ru="Разработка UI компонентов и верстка макетов." data-en="Developing UI components and layout implementation.">UI компоненты и верстка.</p>
+            </div>
+        </div>
+        <img class="github-stats reveal" src="https://github-readme-stats.vercel.app/api?username=aslonovrgb&show_icons=true&theme=transparent&hide_border=true&title_color=38bdf8&text_color=94a3b8&icon_color=38bdf8" alt="Stats">
+    </section>
+
+    <section id="projects" class="reveal" style="margin-top: 100px;">
+        <h2 class="section-title lang-txt" data-ru="Проекты" data-en="Works">Проекты</h2>
+        <div class="project-card active-hover">
+            <div class="project-media">
+                <iframe src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/design/ZCsDRb5d4t9JCmwmrOcYJW/Figma-basics--Copy-?node-id=1669-162202" allowfullscreen></iframe>
+            </div>
+            <div class="project-info">
+                <div style="margin-bottom: 12px;"><span class="tag">Figma</span><span class="tag">UI/UX System</span></div>
+                <h3>Figma Basics Dashboard</h3>
+                <p class="lang-txt" data-ru="Интерактивный прототип и дизайн-система для мобильного банкинга." data-en="Interactive prototype and design system for mobile banking.">Прототип и дизайн-система.</p>
+                <a href="https://www.figma.com/design/ZCsDRb5d4t9JCmwmrOcYJW/Figma-basics--Copy-?node-id=1669-162202" target="_blank" class="btn btn-secondary active-hover" style="margin-top: 20px; width: 100%; justify-content: center;">
+                    <i class="fa-brands fa-figma"></i> <span class="lang-txt" data-ru="Открыть проект" data-en="View Project">Открыть проект</span>
+                </a>
             </div>
         </div>
     </section>
 
     <section class="reveal">
         <h2 class="section-title">FAQ</h2>
-        <div class="faq-item">
+        <div class="faq-item active-hover">
             <div class="faq-question">
-                <span class="lang-txt" data-ru="Работаете ли вы с дизайном?" data-en="Do you do design?">Работаете ли вы с дизайном?</span>
-                <i class="fa-solid fa-chevron-down"></i>
+                <span class="lang-txt" data-ru="Сколько времени занимает разработка?" data-en="How long does it take?">Сколько времени занимает разработка?</span>
+                <i class="fa-solid fa-plus"></i>
             </div>
-            <div class="faq-answer lang-txt" data-ru="Да, я создаю полные UI/UX макеты в Figma перед разработкой." data-en="Yes, I create full UI/UX mockups in Figma before development.">Да, я делаю дизайн в Figma.</div>
+            <div class="faq-answer lang-txt" data-ru="В среднем от 2 недель для MVP до 2 месяцев для полноценного продукта." data-en="Average from 2 weeks for MVP to 2 months for a full product.">От 2 недель до 2 месяцев.</div>
+        </div>
+        <div class="faq-item active-hover">
+            <div class="faq-question">
+                <span class="lang-txt" data-ru="Вы делаете дизайн и код вместе?" data-en="Do you do both design and code?">Вы делаете дизайн и код вместе?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="faq-answer lang-txt" data-ru="Да, я могу закрыть проект под ключ: от идеи и макетов в Figma до готового приложения." data-en="Yes, I can handle a project turnkey: from idea and Figma mockups to a finished app.">Да, проект под ключ.</div>
+        </div>
+        <div class="faq-item active-hover">
+            <div class="faq-question">
+                <span class="lang-txt" data-ru="Какие технологии вы используете?" data-en="What tech stack do you use?">Какие технологии вы используете?</span>
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="faq-answer lang-txt" data-ru="Мой основной стек: Flutter, Dart, Firebase, Riverpod и Figma." data-en="My core stack: Flutter, Dart, Firebase, Riverpod, and Figma.">Flutter, Dart, Firebase, Figma.</div>
         </div>
     </section>
 
     <section id="contact" class="reveal">
-        <h2 class="section-title lang-txt" data-ru="Написать мне" data-en="Contact Me">Написать мне</h2>
+        <h2 class="section-title lang-txt" data-ru="Контакты" data-en="Contact">Контакты</h2>
         <div class="contact-section">
-            <div data-fs-success><b class="lang-txt" data-ru="Отправлено!" data-en="Sent!">Отправлено!</b></div>
-            <div data-fs-error><b class="lang-txt" data-ru="Ошибка!" data-en="Error!">Ошибка!</b></div>
-
+            <div data-fs-success><span class="lang-txt" data-ru="Успешно отправлено!" data-en="Message sent successfully!">Успешно отправлено!</span></div>
             <form id="contact-form" class="contact-form">
-                <input type="text" name="name" placeholder="Name" data-fs-field required>
-                <input type="email" name="email" placeholder="Email" data-fs-field required>
-                <textarea name="message" rows="5" placeholder="Message" data-fs-field required></textarea>
-                <button type="submit" data-fs-submit-btn class="btn btn-primary lang-txt" data-ru="Отправить" data-en="Send">Отправить</button>
+                <input type="text" name="name" placeholder="Name" required class="active-hover">
+                <input type="email" name="email" placeholder="Email" required class="active-hover">
+                <textarea name="message" rows="5" placeholder="Your message..." required class="active-hover"></textarea>
+                <button type="submit" class="btn btn-primary active-hover lang-txt" data-ru="Отправить" data-en="Send Message">Отправить</button>
             </form>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: var(--text-dim);">
-        <p>© 2026 Daniel Aslonov. Flutter & Design.</p>
+    <footer style="padding: 60px 0; text-align: center; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 80px;">
+        <p>© 2026 Daniel Aslonov. Flutter Developer & Designer.</p>
     </footer>
 </div>
 
-<a href="https://t.me/nenotiiice" class="fab" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+<a href="https://t.me/nenotiiice" class="fab active-hover" target="_blank"><i class="fa-brands fa-telegram"></i></a>
 
 <script>
-    // Тема
+    // --- Custom Cursor ---
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('.active-hover').forEach(el => {
+        el.onmouseenter = () => cursor.classList.add('cursor-hover');
+        el.onmouseleave = () => cursor.classList.remove('cursor-hover');
+    });
+
+    // --- Theme & Lang ---
     const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
+    themeBtn.onclick = () => {
         const isDark = document.body.getAttribute('data-theme') === 'dark';
         document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
         themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-    });
+    };
 
-    // Язык
     const langBtn = document.getElementById('lang-btn');
     let currentLang = 'ru';
-    langBtn.addEventListener('click', () => {
+    langBtn.onclick = () => {
         currentLang = currentLang === 'ru' ? 'en' : 'ru';
         langBtn.textContent = currentLang.toUpperCase();
-        document.querySelectorAll('.lang-txt').forEach(el => {
-            el.textContent = el.getAttribute(`data-${currentLang}`);
-        });
-    });
+        document.querySelectorAll('.lang-txt').forEach(el => el.textContent = el.getAttribute(`data-${currentLang}`));
+    };
 
-    // Аккордеон
+    // --- FAQ ---
     document.querySelectorAll('.faq-question').forEach(q => {
-        q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+        q.onclick = () => q.parentElement.classList.toggle('active');
     });
 
-    // Скролл
+    // --- Scroll Logic ---
     window.onscroll = () => {
-        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let winScroll = document.documentElement.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         document.getElementById("myBar").style.width = (winScroll / height) * 100 + "%";
     };
 
-    // Анимация появления
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+    const observer = new IntersectionObserver((es) => {
+        es.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
 
-    // Formspree AJAX
+    // --- Formspree AJAX ---
     window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
     formspree('initForm', { formElement: '#contact-form', formId: 'mbdwbjlo' });
 </script>
