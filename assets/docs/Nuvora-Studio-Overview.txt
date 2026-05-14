@@ -1,11 +1,18 @@
 Nuvora Studio — Project Overview
 
-Digital studio by Savchenko Daniil.
+Small digital studio led by Daniel and focused on end-to-end product work.
 Services: websites, mobile apps, UI/UX design, MVP development, redesign and product support.
 
 Contact:
 Email: nenotiiice@gmail.com
 Telegram: https://t.me/nenotiiice
-GitHub: https://github.com/aslonovrgb
+GitHub: https://github.com/usanv
 
-Replace this file with a real PDF company deck or CV before publishing.
+Publishing notes:
+- index.html is ready to upload.
+- CSS is in assets/css/style.css.
+- JS is in assets/js/main.js.
+- Icons and social preview assets are in assets/img/.
+
+Featured live previews: weel.uz and crestlink.net.
+Real GitHub cases: weel-booking, crestlink-project, diaree_tasks_notes-flutter, calculator-flutter, news_api_python, api_to_bot.

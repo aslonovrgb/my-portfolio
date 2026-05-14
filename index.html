@@ -6,7 +6,7 @@
   <title>Nuvora Studio - Websites, Mobile Apps & UI/UX</title>
   <meta name="description" content="Nuvora Studio - digital studio creating websites, mobile apps, UI/UX design and MVP products from idea to launch.">
   <meta name="keywords" content="Nuvora Studio, Websites, Mobile Apps, UI UX Design, Flutter, Figma, MVP, Digital Studio">
-  <meta name="author" content="Nuvora Studio by Savchenko Daniil">
+  <meta name="author" content="Nuvora Studio">
   <meta name="theme-color" content="#38bdf8">
 
   <meta property="og:title" content="Nuvora Studio | Websites, Apps & UI/UX">
@@ -104,7 +104,7 @@
           </div>
 
           <div class="hero-socials" aria-label="Social links">
-            <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="https://github.com/usanv" target="_blank" rel="noopener" class="active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
             <a href="https://t.me/nenotiiice" target="_blank" rel="noopener" class="active-hover"><i class="fa-brands fa-telegram"></i> Telegram</a>
             <button id="copy-email" class="email-link active-hover"><i class="fa-regular fa-envelope"></i> Email</button>
             <span id="email-text" hidden>nenotiiice@gmail.com</span>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="mini-grid">
                   <div><i class="fa-brands fa-figma"></i><span>Figma</span></div>
-                  <div><i class="fa-brands fa-flutter"></i><span>Flutter</span></div>
+                  <div><span class="custom-icon flutter-mark" aria-hidden="true"></span><span>Flutter</span></div>
                 </div>
                 <div class="progress-stack">
                   <div><span>Product strategy</span><b>94%</b></div>
@@ -169,8 +169,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-label lang-txt" data-ru="Кейсы Nuvora" data-en="Nuvora cases">Кейсы Nuvora</span>
-          <h2 class="section-title lang-txt" data-ru="Концепты и demo-проекты, которые показывают подход студии." data-en="Concept and demo projects that show the studio approach.">Концепты и demo-проекты, которые показывают подход студии.</h2>
-          <p class="section-subtitle lang-txt" data-ru="Пока настоящие клиентские кейсы можно добавлять позже, эти карточки честно отмечены как Concept / Demo / MVP и показывают услуги, стиль и процесс." data-en="Until real client cases are added, these cards are clearly marked as Concept / Demo / MVP and show services, style and process.">Пока настоящие клиентские кейсы можно добавлять позже, эти карточки честно отмечены как Concept / Demo / MVP и показывают услуги, стиль и процесс.</p>
+          <h2 class="section-title lang-txt" data-ru="Реальные GitHub-проекты, оформленные как кейсы Nuvora Studio." data-en="Real GitHub projects presented as Nuvora Studio case studies.">Реальные GitHub-проекты, оформленные как кейсы Nuvora Studio.</h2>
+          <p class="section-subtitle lang-txt" data-ru="Эти кейсы основаны на реальных публичных репозиториях GitHub: Flutter-приложения, web-проекты, API и Telegram-боты. Часть репозиториев пока без подробного README, поэтому карточки аккуратно описывают назначение по структуре проекта и стеку." data-en="These cases are based on real public GitHub repositories: Flutter apps, web projects, APIs and Telegram bots. Some repos have minimal READMEs, so cards describe the purpose carefully based on project structure and stack.">Эти кейсы основаны на реальных публичных репозиториях GitHub: Flutter-приложения, web-проекты, API и Telegram-боты. Часть репозиториев пока без подробного README, поэтому карточки аккуратно описывают назначение по структуре проекта и стеку.</p>
         </div>
 
         <div class="filters" role="tablist" aria-label="Project filters">
@@ -178,109 +178,233 @@
           <button class="filter-btn active-hover" data-filter="web">Web</button>
           <button class="filter-btn active-hover" data-filter="mobile">Mobile</button>
           <button class="filter-btn active-hover" data-filter="uiux">UI/UX</button>
+          <button class="filter-btn active-hover" data-filter="backend">Backend</button>
           <button class="filter-btn active-hover" data-filter="mvp">MVP</button>
         </div>
 
+        <div id="live-preview" class="live-preview-block reveal">
+          <div class="preview-head">
+            <div>
+              <span class="section-label lang-txt" data-ru="Live preview" data-en="Live preview">Live preview</span>
+              <h3 class="preview-title lang-txt" data-ru="Живые превью проектов, где Nuvora принимала участие." data-en="Live previews of projects where Nuvora took part.">Живые превью проектов, где Nuvora принимала участие.</h3>
+              <p class="preview-subtitle lang-txt" data-ru="Красивые browser-карточки: можно посмотреть сайт прямо внутри портфолио или открыть в новой вкладке." data-en="Beautiful browser cards: view the website inside the portfolio or open it in a new tab.">Красивые browser-карточки: можно посмотреть сайт прямо внутри портфолио или открыть в новой вкладке.</p>
+            </div>
+            <div class="preview-status"><span></span><b>2</b> live</div>
+          </div>
+
+          <div class="preview-grid">
+            <article class="preview-card active-hover" data-tilt data-tilt-max="3">
+              <div class="preview-browser">
+                <div class="browser-bar">
+                  <div class="browser-dots"><span></span><span></span><span></span></div>
+                  <strong>weel.uz</strong>
+                  <div class="preview-device-toggle" aria-label="Preview size">
+                    <button type="button" class="preview-size-btn active active-hover" data-preview-size="desktop"><span class="lang-txt" data-ru="ПК" data-en="Desk">ПК</span></button>
+                    <button type="button" class="preview-size-btn active-hover" data-preview-size="mobile"><span class="lang-txt" data-ru="Моб" data-en="Mob">Моб</span></button>
+                  </div>
+                  <button type="button" class="browser-open active-hover lang-txt" data-open-preview="https://weel.uz/" data-title="Weel" data-ru="Открыть превью" data-en="Open preview">Открыть превью</button>
+                </div>
+                <iframe class="live-frame" title="Weel live website preview" data-src="https://weel.uz/" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="frame-fallback">
+                  <i class="fa-solid fa-house-chimney-window"></i>
+                  <strong>Weel</strong>
+                  <span class="lang-txt" data-ru="Сервис аренды дач, коттеджей и вилл" data-en="Villa, cottage and dacha rental service">Сервис аренды дач, коттеджей и вилл</span>
+                </div>
+              </div>
+              <div class="preview-info">
+                <div class="case-meta"><span>Website</span><span>Product</span><span>Booking</span></div>
+                <h3>Weel</h3>
+                <p class="lang-txt" data-ru="Участвовали в digital-продукте Weel: аккуратная подача, сценарии бронирования и продуктовая логика для пользователей." data-en="We took part in the Weel digital product: clean presentation, booking scenarios and product logic for users.">Участвовали в digital-продукте Weel: аккуратная подача, сценарии бронирования и продуктовая логика для пользователей.</p>
+                <div class="case-actions">
+                  <button type="button" class="btn btn-secondary active-hover lang-txt" data-open-preview="https://weel.uz/" data-title="Weel" data-ru="Смотреть внутри" data-en="View inside">Смотреть внутри</button>
+                  <a href="https://weel.uz/" target="_blank" rel="noopener" class="btn btn-ghost active-hover lang-txt" data-ru="Открыть сайт" data-en="Open site">Открыть сайт</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="preview-card active-hover" data-tilt data-tilt-max="3">
+              <div class="preview-browser crest-preview">
+                <div class="browser-bar">
+                  <div class="browser-dots"><span></span><span></span><span></span></div>
+                  <strong>crestlink.net</strong>
+                  <div class="preview-device-toggle" aria-label="Preview size">
+                    <button type="button" class="preview-size-btn active active-hover" data-preview-size="desktop"><span class="lang-txt" data-ru="ПК" data-en="Desk">ПК</span></button>
+                    <button type="button" class="preview-size-btn active-hover" data-preview-size="mobile"><span class="lang-txt" data-ru="Моб" data-en="Mob">Моб</span></button>
+                  </div>
+                  <button type="button" class="browser-open active-hover lang-txt" data-open-preview="https://crestlink.net/" data-title="CrestLink" data-ru="Открыть превью" data-en="Open preview">Открыть превью</button>
+                </div>
+                <iframe class="live-frame" title="CrestLink live website preview" data-src="https://crestlink.net/" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="frame-fallback">
+                  <i class="fa-solid fa-shirt"></i>
+                  <strong>CrestLink</strong>
+                  <span class="lang-txt" data-ru="Компания, для которой делали event-приложение" data-en="Company for which we built an event app">Компания, для которой делали event-приложение</span>
+                </div>
+              </div>
+              <div class="preview-info">
+                <div class="case-meta"><span>Event App</span><span>Flutter</span><span>Brand</span></div>
+                <h3>CrestLink</h3>
+                <p class="lang-txt" data-ru="Компания CrestLink и их сайт: в портфолио добавлен живой контекст к приложению, которое делали под их event-направление." data-en="CrestLink company and website: the portfolio now shows live context for the app built for their event direction.">Компания CrestLink и их сайт: в портфолио добавлен живой контекст к приложению, которое делали под их event-направление.</p>
+                <div class="case-actions">
+                  <button type="button" class="btn btn-secondary active-hover lang-txt" data-open-preview="https://crestlink.net/" data-title="CrestLink" data-ru="Смотреть внутри" data-en="View inside">Смотреть внутри</button>
+                  <a href="https://crestlink.net/" target="_blank" rel="noopener" class="btn btn-ghost active-hover lang-txt" data-ru="Открыть сайт" data-en="Open site">Открыть сайт</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
         <div class="case-stack">
-          <article class="case-card active-hover" data-category="mobile uiux mvp">
+          <article class="case-card active-hover" data-category="mobile mvp">
             <div class="case-media mockup-media">
               <div class="mockup-screen premium-phone">
-                <div class="mockup-header"><span></span><strong>NovaShop</strong><i class="fa-solid fa-bag-shopping"></i></div>
-                <div class="product-card"><i class="fa-solid fa-shirt"></i><div><strong>Smart Catalog</strong><small>Cart, filters, favorites</small></div></div>
+                <div class="mockup-header"><span></span><strong>weel-booking</strong><i class="fa-solid fa-calendar-check"></i></div>
+                <div class="product-card"><span class="custom-icon flutter-mark" aria-hidden="true"></span><div><strong>Booking Flow</strong><small>Flutter • iOS • Android • Web</small></div></div>
                 <div class="mockup-list"><span></span><span></span><span></span></div>
-                <div class="mockup-nav"><i class="fa-solid fa-house"></i><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-cart-shopping"></i><i class="fa-solid fa-user"></i></div>
+                <div class="mockup-nav"><i class="fa-solid fa-house"></i><i class="fa-solid fa-calendar"></i><i class="fa-solid fa-bell"></i><i class="fa-solid fa-user"></i></div>
               </div>
-              <div class="media-overlay"><span><i class="fa-solid fa-tag"></i> Concept MVP</span></div>
+              <div class="media-overlay"><span><i class="fa-brands fa-github"></i> Real GitHub Repo</span></div>
             </div>
             <div class="case-content">
-              <div class="case-meta"><span>Mobile</span><span>Flutter</span><span>MVP</span></div>
-              <h3>NovaShop — E-commerce Mobile App</h3>
-              <p class="lang-txt" data-ru="Концепт мобильного магазина с каталогом, корзиной, избранным и понятным путём покупки." data-en="A mobile commerce concept with catalog, cart, favorites and a clear purchase flow.">Концепт мобильного магазина с каталогом, корзиной, избранным и понятным путём покупки.</p>
+              <div class="case-meta"><span>Flutter</span><span>Booking</span><span>Mobile</span></div>
+              <h3>weel-booking — Flutter Booking App</h3>
+              <p class="lang-txt" data-ru="Мобильное Flutter-приложение для сценариев бронирования. Репозиторий содержит полноценную Flutter-структуру под Android, iOS, Web, Desktop и папку assets." data-en="A Flutter mobile app for booking scenarios. The repository includes a full Flutter structure for Android, iOS, Web, Desktop and an assets folder.">Мобильное Flutter-приложение для сценариев бронирования. Репозиторий содержит полноценную Flutter-структуру под Android, iOS, Web, Desktop и папку assets.</p>
               <ul class="case-points">
-                <li class="lang-txt" data-ru="UX-структура, onboarding и сценарии покупки" data-en="UX structure, onboarding and purchase flows">UX-структура, onboarding и сценарии покупки</li>
-                <li class="lang-txt" data-ru="UI-kit и карточки товаров для Flutter" data-en="UI kit and product cards for Flutter">UI-kit и карточки товаров для Flutter</li>
-                <li class="lang-txt" data-ru="Корзина, избранное, состояния загрузки и ошибок" data-en="Cart, favorites, loading and error states">Корзина, избранное, состояния загрузки и ошибок</li>
+                <li class="lang-txt" data-ru="Кроссплатформенная Flutter-архитектура" data-en="Cross-platform Flutter architecture">Кроссплатформенная Flutter-архитектура</li>
+                <li class="lang-txt" data-ru="Основа под booking flow и пользовательские сценарии" data-en="Foundation for booking flow and user scenarios">Основа под booking flow и пользовательские сценарии</li>
+                <li class="lang-txt" data-ru="Подготовка под мобильный и web-запуск" data-en="Prepared for mobile and web delivery">Подготовка под мобильный и web-запуск</li>
               </ul>
               <div class="case-actions">
-                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Заказать MVP" data-en="Build MVP">Заказать MVP</a>
-                <a href="#services" class="btn btn-ghost active-hover lang-txt" data-ru="Что входит" data-en="What is included">Что входит</a>
+                <a href="https://github.com/usanv/weel-booking" target="_blank" rel="noopener" class="btn btn-secondary active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#contact" class="btn btn-ghost active-hover lang-txt" data-ru="Похожий MVP" data-en="Similar MVP">Похожий MVP</a>
               </div>
             </div>
           </article>
 
-          <article class="case-card reverse active-hover" data-category="web uiux">
+          <article class="case-card reverse active-hover" data-category="web mobile">
             <div class="case-media mockup-media alt">
               <div class="analytics-card website-card">
-                <div class="analytics-top"><i class="fa-solid fa-globe"></i><span>Cloudly</span></div>
-                <div class="analytics-number">SaaS</div>
+                <div class="analytics-top"><i class="fa-solid fa-calendar-days"></i><span>crestlink</span></div>
+                <div class="analytics-number">Event Web</div>
                 <div class="analytics-bars"><span></span><span></span><span></span><span></span><span></span></div>
                 <div class="analytics-grid"><div></div><div></div><div></div><div></div></div>
               </div>
-              <div class="media-overlay"><span><i class="fa-solid fa-desktop"></i> Website Concept</span></div>
+              <div class="media-overlay"><span><i class="fa-solid fa-globe"></i> Web Event App</span></div>
             </div>
             <div class="case-content">
-              <div class="case-meta"><span>Website</span><span>Landing</span><span>Frontend</span></div>
-              <h3>Cloudly — SaaS Landing Page</h3>
-              <p class="lang-txt" data-ru="Премиальный лендинг для SaaS-сервиса: сильный hero, блоки доверия, pricing, FAQ и форма заявки." data-en="A premium SaaS landing page: strong hero, trust blocks, pricing, FAQ and lead form.">Премиальный лендинг для SaaS-сервиса: сильный hero, блоки доверия, pricing, FAQ и форма заявки.</p>
+              <div class="case-meta"><span>Web</span><span>Flutter Build</span><span>JavaScript</span></div>
+              <h3>crestlink-project — Event Web App</h3>
+              <p class="lang-txt" data-ru="Тестовая web-версия event-приложения: в репозитории есть Flutter web build, service worker, manifest, Firebase messaging worker и CNAME." data-en="A test web version of an event app: the repository includes Flutter web build files, service worker, manifest, Firebase messaging worker and CNAME.">Тестовая web-версия event-приложения: в репозитории есть Flutter web build, service worker, manifest, Firebase messaging worker и CNAME.</p>
               <ul class="case-points">
-                <li class="lang-txt" data-ru="Структура посадочной страницы под конверсию" data-en="Conversion-focused landing page structure">Структура посадочной страницы под конверсию</li>
-                <li class="lang-txt" data-ru="Адаптивная вёрстка и аккуратные анимации" data-en="Responsive layout and subtle animations">Адаптивная вёрстка и аккуратные анимации</li>
-                <li class="lang-txt" data-ru="CTA, тарифы, FAQ и контактная форма" data-en="CTA, pricing, FAQ and contact form">CTA, тарифы, FAQ и контактная форма</li>
+                <li class="lang-txt" data-ru="Web-публикация Flutter-приложения" data-en="Flutter app web deployment">Web-публикация Flutter-приложения</li>
+                <li class="lang-txt" data-ru="Файлы для PWA/web-запуска и service worker" data-en="PWA/web launch files and service worker">Файлы для PWA/web-запуска и service worker</li>
+                <li class="lang-txt" data-ru="Хороший кейс для event/MVP-направления" data-en="Strong case for event/MVP direction">Хороший кейс для event/MVP-направления</li>
               </ul>
               <div class="case-actions">
-                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Заказать сайт" data-en="Build website">Заказать сайт</a>
-                <a href="#skills" class="btn btn-ghost active-hover lang-txt" data-ru="Технологии" data-en="Tech stack">Технологии</a>
+                <a href="https://github.com/usanv/crestlink-project" target="_blank" rel="noopener" class="btn btn-secondary active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#services" class="btn btn-ghost active-hover lang-txt" data-ru="Web-разработка" data-en="Web development">Web-разработка</a>
               </div>
             </div>
           </article>
 
-          <article class="case-card active-hover" data-category="uiux mobile">
+          <article class="case-card active-hover" data-category="mobile uiux">
+            <div class="case-media mockup-media fitness-media">
+              <div class="mockup-screen">
+                <div class="mockup-header"><span></span><strong>Tasks Notes</strong><i class="fa-solid fa-list-check"></i></div>
+                <div class="product-card"><i class="fa-solid fa-database"></i><div><strong>Local Storage</strong><small>sqflite • tasks • notes</small></div></div>
+                <div class="mockup-list"><span></span><span></span><span></span></div>
+                <div class="mockup-nav"><i class="fa-solid fa-house"></i><i class="fa-solid fa-note-sticky"></i><i class="fa-solid fa-plus"></i><i class="fa-solid fa-gear"></i></div>
+              </div>
+              <div class="media-overlay"><span><span class="custom-icon flutter-mark tiny" aria-hidden="true"></span> Flutter + SQLite</span></div>
+            </div>
+            <div class="case-content">
+              <div class="case-meta"><span>Flutter</span><span>sqflite</span><span>Productivity</span></div>
+              <h3>diaree_tasks_notes — To‑Do & Notes App</h3>
+              <p class="lang-txt" data-ru="Приложение для задач и заметок: списки дел, редактирование, удаление, заметки к задачам и локальное хранение через sqflite." data-en="A tasks and notes app: to-do lists, editing, deleting, task notes and local persistence via sqflite.">Приложение для задач и заметок: списки дел, редактирование, удаление, заметки к задачам и локальное хранение через sqflite.</p>
+              <ul class="case-points">
+                <li class="lang-txt" data-ru="CRUD-логика для задач и заметок" data-en="CRUD logic for tasks and notes">CRUD-логика для задач и заметок</li>
+                <li class="lang-txt" data-ru="Локальная база данных на устройстве" data-en="Local database on device">Локальная база данных на устройстве</li>
+                <li class="lang-txt" data-ru="Скриншоты и готовая Flutter-структура" data-en="Screenshots and ready Flutter structure">Скриншоты и готовая Flutter-структура</li>
+              </ul>
+              <div class="case-actions">
+                <a href="https://github.com/usanv/diaree_tasks_notes-flutter" target="_blank" rel="noopener" class="btn btn-secondary active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#skills" class="btn btn-ghost active-hover lang-txt" data-ru="Flutter-навыки" data-en="Flutter skills">Flutter-навыки</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reverse active-hover" data-category="mobile uiux">
             <div class="case-media figma-media concept-media">
               <div class="design-board">
-                <div class="board-top"><i class="fa-brands fa-figma"></i><span>FinTrack UI System</span></div>
+                <div class="board-top"><i class="fa-solid fa-calculator"></i><span>Calculator UI</span></div>
                 <div class="board-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 <div class="board-flow"><span></span><span></span><span></span></div>
               </div>
-              <div class="media-overlay"><span><i class="fa-brands fa-figma"></i> UI/UX Concept</span></div>
+              <div class="media-overlay"><span><i class="fa-solid fa-clock-rotate-left"></i> History Feature</span></div>
             </div>
             <div class="case-content">
-              <div class="case-meta"><span>UI/UX</span><span>Figma</span><span>Design System</span></div>
-              <h3>FinTrack — Finance UI/UX Concept</h3>
-              <p class="lang-txt" data-ru="Концепт финансового приложения с понятной аналитикой, целями, расходами и мобильной дизайн-системой." data-en="A finance app concept with clear analytics, goals, expenses and a mobile design system.">Концепт финансового приложения с понятной аналитикой, целями, расходами и мобильной дизайн-системой.</p>
+              <div class="case-meta"><span>Flutter</span><span>UI</span><span>Utility</span></div>
+              <h3>calculator-flutter — Calculator with History</h3>
+              <p class="lang-txt" data-ru="Flutter-калькулятор с историей вычислений. В репозитории есть screenshots, lib и стандартная кроссплатформенная структура Flutter." data-en="A Flutter calculator with calculation history. The repository includes screenshots, lib and a standard cross-platform Flutter structure.">Flutter-калькулятор с историей вычислений. В репозитории есть screenshots, lib и стандартная кроссплатформенная структура Flutter.</p>
               <ul class="case-points">
-                <li class="lang-txt" data-ru="User flow, onboarding и ключевые сценарии" data-en="User flow, onboarding and key scenarios">User flow, onboarding и ключевые сценарии</li>
-                <li class="lang-txt" data-ru="Компоненты, состояния и UI-kit" data-en="Components, states and UI kit">Компоненты, состояния и UI-kit</li>
-                <li class="lang-txt" data-ru="Интерфейс, готовый к передаче в разработку" data-en="Dev-ready interface handoff">Интерфейс, готовый к передаче в разработку</li>
+                <li class="lang-txt" data-ru="Чистый utility-интерфейс" data-en="Clean utility interface">Чистый utility-интерфейс</li>
+                <li class="lang-txt" data-ru="История действий и состояния экрана" data-en="Action history and screen states">История действий и состояния экрана</li>
+                <li class="lang-txt" data-ru="Подходит как компактный UI/logic кейс" data-en="Good compact UI/logic case">Подходит как компактный UI/logic кейс</li>
               </ul>
               <div class="case-actions">
-                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Заказать дизайн" data-en="Order design">Заказать дизайн</a>
-                <a href="#process" class="btn btn-ghost active-hover lang-txt" data-ru="Процесс" data-en="Process">Процесс</a>
+                <a href="https://github.com/usanv/calculator-flutter" target="_blank" rel="noopener" class="btn btn-secondary active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#contact" class="btn btn-ghost active-hover lang-txt" data-ru="Заказать app" data-en="Build app">Заказать app</a>
               </div>
             </div>
           </article>
 
-          <article class="case-card reverse active-hover" data-category="mobile mvp">
-            <div class="case-media mockup-media fitness-media">
-              <div class="mockup-screen">
-                <div class="mockup-header"><span></span><strong>PulseFit</strong><i class="fa-solid fa-heart-pulse"></i></div>
-                <div class="product-card"><i class="fa-solid fa-dumbbell"></i><div><strong>Workout Plan</strong><small>Habits, progress, streaks</small></div></div>
-                <div class="mockup-list"><span></span><span></span><span></span></div>
-                <div class="mockup-nav"><i class="fa-solid fa-house"></i><i class="fa-solid fa-calendar"></i><i class="fa-solid fa-chart-simple"></i><i class="fa-solid fa-user"></i></div>
+          <article class="case-card active-hover" data-category="backend mvp">
+            <div class="case-media mockup-media alt">
+              <div class="analytics-card website-card">
+                <div class="analytics-top"><i class="fa-brands fa-python"></i><span>news_api</span></div>
+                <div class="analytics-number">API</div>
+                <div class="analytics-bars"><span></span><span></span><span></span><span></span><span></span></div>
+                <div class="analytics-grid"><div></div><div></div><div></div><div></div></div>
               </div>
-              <div class="media-overlay"><span><i class="fa-brands fa-flutter"></i> Demo App</span></div>
+              <div class="media-overlay"><span><i class="fa-solid fa-server"></i> Python Backend</span></div>
             </div>
             <div class="case-content">
-              <div class="case-meta"><span>Flutter</span><span>Firebase</span><span>Demo</span></div>
-              <h3>PulseFit — Fitness Mobile App</h3>
-              <p class="lang-txt" data-ru="Demo-приложение для тренировок и привычек: прогресс, планы, streaks и быстрые действия." data-en="A demo fitness and habits app: progress, plans, streaks and quick actions.">Demo-приложение для тренировок и привычек: прогресс, планы, streaks и быстрые действия.</p>
+              <div class="case-meta"><span>Python</span><span>API</span><span>Backend</span></div>
+              <h3>news_api_python — News API Project</h3>
+              <p class="lang-txt" data-ru="Python-проект с backend/API-структурой: main.py, requirements.txt, HTTP-тесты и отдельная папка news." data-en="A Python project with backend/API structure: main.py, requirements.txt, HTTP tests and a separate news package.">Python-проект с backend/API-структурой: main.py, requirements.txt, HTTP-тесты и отдельная папка news.</p>
               <ul class="case-points">
-                <li class="lang-txt" data-ru="Mobile-first интерфейс и карточки прогресса" data-en="Mobile-first UI and progress cards">Mobile-first интерфейс и карточки прогресса</li>
-                <li class="lang-txt" data-ru="Состояния пользователя, статистика и привычки" data-en="User states, stats and habits">Состояния пользователя, статистика и привычки</li>
-                <li class="lang-txt" data-ru="Плавные переходы и clean component structure" data-en="Smooth transitions and clean component structure">Плавные переходы и clean component structure</li>
+                <li class="lang-txt" data-ru="Основы API-разработки на Python" data-en="Python API development basics">Основы API-разработки на Python</li>
+                <li class="lang-txt" data-ru="requirements и тестовый HTTP-файл" data-en="Requirements and test HTTP file">requirements и тестовый HTTP-файл</li>
+                <li class="lang-txt" data-ru="Подходит как backend-блок для Nuvora" data-en="Fits as a backend block for Nuvora">Подходит как backend-блок для Nuvora</li>
               </ul>
               <div class="case-actions">
-                <a href="#contact" class="btn btn-secondary active-hover lang-txt" data-ru="Обсудить приложение" data-en="Discuss app">Обсудить приложение</a>
-                <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="btn btn-ghost active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://github.com/usanv/news_api_python" target="_blank" rel="noopener" class="btn btn-secondary active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#services" class="btn btn-ghost active-hover lang-txt" data-ru="API для продукта" data-en="API for product">API для продукта</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reverse active-hover" data-category="backend mvp">
+            <div class="case-media mockup-media">
+              <div class="mockup-screen premium-phone">
+                <div class="mockup-header"><span></span><strong>api_to_bot</strong><i class="fa-brands fa-telegram"></i></div>
+                <div class="product-card"><i class="fa-solid fa-robot"></i><div><strong>Bot + API</strong><small>Python • Procfile • requirements</small></div></div>
+                <div class="mockup-list"><span></span><span></span><span></span></div>
+                <div class="mockup-nav"><i class="fa-solid fa-terminal"></i><i class="fa-solid fa-code"></i><i class="fa-solid fa-server"></i><i class="fa-solid fa-paper-plane"></i></div>
+              </div>
+              <div class="media-overlay"><span><i class="fa-brands fa-python"></i> Telegram Automation</span></div>
+            </div>
+            <div class="case-content">
+              <div class="case-meta"><span>Python</span><span>Telegram</span><span>Automation</span></div>
+              <h3>api_to_bot — API + Telegram Bot</h3>
+              <p class="lang-txt" data-ru="Python-проект для связки API и Telegram-бота: в репозитории есть api.py, bot.py, main.py, requirements.txt и Procfile." data-en="A Python project connecting an API and a Telegram bot: the repository includes api.py, bot.py, main.py, requirements.txt and Procfile.">Python-проект для связки API и Telegram-бота: в репозитории есть api.py, bot.py, main.py, requirements.txt и Procfile.</p>
+              <ul class="case-points">
+                <li class="lang-txt" data-ru="Бот-автоматизация и API-слой" data-en="Bot automation and API layer">Бот-автоматизация и API-слой</li>
+                <li class="lang-txt" data-ru="Отдельные файлы для bot, api и запуска" data-en="Separate files for bot, API and entry point">Отдельные файлы для bot, api и запуска</li>
+                <li class="lang-txt" data-ru="Можно развить в сервис уведомлений или CRM-интеграцию" data-en="Can evolve into notifications or CRM integration">Можно развить в сервис уведомлений или CRM-интеграцию</li>
+              </ul>
+              <div class="case-actions">
+                <a href="https://github.com/usanv/api_to_bot" target="_blank" rel="noopener" class="btn btn-secondary active-hover"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#contact" class="btn btn-ghost active-hover lang-txt" data-ru="Сделать бота" data-en="Build a bot">Сделать бота</a>
               </div>
             </div>
           </article>
@@ -302,7 +426,7 @@
             <p class="lang-txt" data-ru="Лендинги, сайты и веб-интерфейсы: быстрые, адаптивные и визуально сильные." data-en="Landing pages, websites and web interfaces: fast, responsive and visually strong.">Лендинги, сайты и веб-интерфейсы: быстрые, адаптивные и визуально сильные.</p>
           </article>
           <article class="service-card active-hover" data-tilt data-tilt-max="4">
-            <div class="card-icon flutter"><i class="fa-brands fa-flutter"></i></div>
+            <div class="card-icon flutter"><i class="fa-solid fa-mobile-screen-button"></i></div>
             <h3>Mobile Apps</h3>
             <p class="lang-txt" data-ru="Flutter-приложения под iOS и Android: MVP, кабинеты, сервисы и приложения для бизнеса." data-en="Flutter apps for iOS and Android: MVPs, dashboards, services and business apps.">Flutter-приложения под iOS и Android: MVP, кабинеты, сервисы и приложения для бизнеса.</p>
           </article>
@@ -348,7 +472,7 @@
           </article>
 
           <article class="skill-card featured active-hover" data-tilt data-tilt-max="5">
-            <div class="skill-top"><div class="skill-icon flutter"><i class="fa-brands fa-flutter"></i></div><span class="skill-level">Mobile</span></div>
+            <div class="skill-top"><div class="skill-icon flutter"><span class="custom-icon flutter-mark" aria-hidden="true"></span></div><span class="skill-level">Mobile</span></div>
             <h3>Flutter</h3>
             <p class="lang-txt" data-ru="Кроссплатформенные приложения, сложные экраны, навигация, анимации и clean widgets." data-en="Cross-platform apps, complex screens, navigation, animations and clean widgets.">Кроссплатформенные приложения, сложные экраны, навигация, анимации и clean widgets.</p>
             <div class="skill-progress"><span style="width:94%"></span></div>
@@ -416,11 +540,43 @@
           <span class="section-label lang-txt" data-ru="Процесс" data-en="Process">Процесс</span>
           <h2 class="section-title lang-txt" data-ru="Понятный путь от идеи до запуска." data-en="A clear path from idea to launch.">Понятный путь от идеи до запуска.</h2>
         </div>
-        <div class="process-grid">
-          <article class="process-card active-hover"><span>01</span><h3>Discovery</h3><p class="lang-txt" data-ru="Разбираем цель, аудиторию, конкурентов, сценарии и ограничения проекта." data-en="We clarify the goal, audience, competitors, flows and project constraints.">Разбираем цель, аудиторию, конкурентов, сценарии и ограничения проекта.</p></article>
-          <article class="process-card active-hover"><span>02</span><h3>Design</h3><p class="lang-txt" data-ru="Собираем структуру, UI-kit, ключевые экраны, прототип и визуальный стиль." data-en="We create structure, UI kit, key screens, prototype and visual style.">Собираем структуру, UI-kit, ключевые экраны, прототип и визуальный стиль.</p></article>
-          <article class="process-card active-hover"><span>03</span><h3>Development</h3><p class="lang-txt" data-ru="Разрабатываем сайт или приложение, подключаем формы, API, состояния и основные модули." data-en="We build the website or app, connect forms, APIs, states and core modules.">Разрабатываем сайт или приложение, подключаем формы, API, состояния и основные модули.</p></article>
-          <article class="process-card active-hover"><span>04</span><h3>Launch</h3><p class="lang-txt" data-ru="Тестируем, полируем интерфейс, исправляем баги и готовим проект к публикации." data-en="We test, polish the interface, fix bugs and prepare the product for release.">Тестируем, полируем интерфейс, исправляем баги и готовим проект к публикации.</p></article>
+        <div class="process-grid process-roadmap">
+          <article class="process-card process-modern active-hover" data-tilt data-tilt-max="4">
+            <span class="process-index">01</span>
+            <div class="process-card-head"><i class="fa-solid fa-magnifying-glass-chart"></i><h3>Discovery</h3></div>
+            <p class="lang-txt" data-ru="Уточняем цель, аудиторию, конкурентов, сценарии, ограничения и главный результат проекта." data-en="We clarify the goal, audience, competitors, user scenarios, constraints and the main project outcome.">Уточняем цель, аудиторию, конкурентов, сценарии, ограничения и главный результат проекта.</p>
+            <ul class="process-mini-list">
+              <li class="lang-txt" data-ru="бриф и цели" data-en="brief and goals">бриф и цели</li>
+              <li class="lang-txt" data-ru="карта экранов" data-en="screen map">карта экранов</li>
+            </ul>
+          </article>
+          <article class="process-card process-modern active-hover" data-tilt data-tilt-max="4">
+            <span class="process-index">02</span>
+            <div class="process-card-head"><i class="fa-solid fa-pen-ruler"></i><h3>Design</h3></div>
+            <p class="lang-txt" data-ru="Собираем структуру, user flow, UI-kit, ключевые экраны, прототип и визуальный стиль." data-en="We create structure, user flow, UI kit, key screens, prototype and visual style.">Собираем структуру, user flow, UI-kit, ключевые экраны, прототип и визуальный стиль.</p>
+            <ul class="process-mini-list">
+              <li class="lang-txt" data-ru="Figma макеты" data-en="Figma layouts">Figma макеты</li>
+              <li class="lang-txt" data-ru="компоненты" data-en="components">компоненты</li>
+            </ul>
+          </article>
+          <article class="process-card process-modern active-hover" data-tilt data-tilt-max="4">
+            <span class="process-index">03</span>
+            <div class="process-card-head"><i class="fa-solid fa-code-branch"></i><h3>Development</h3></div>
+            <p class="lang-txt" data-ru="Разрабатываем сайт или приложение, подключаем формы, API, состояния, анимации и основные модули." data-en="We build the website or app, connect forms, APIs, states, animations and core modules.">Разрабатываем сайт или приложение, подключаем формы, API, состояния, анимации и основные модули.</p>
+            <ul class="process-mini-list">
+              <li class="lang-txt" data-ru="frontend / Flutter" data-en="frontend / Flutter">frontend / Flutter</li>
+              <li class="lang-txt" data-ru="интеграции" data-en="integrations">интеграции</li>
+            </ul>
+          </article>
+          <article class="process-card process-modern active-hover" data-tilt data-tilt-max="4">
+            <span class="process-index">04</span>
+            <div class="process-card-head"><i class="fa-solid fa-rocket"></i><h3>Launch</h3></div>
+            <p class="lang-txt" data-ru="Тестируем, полируем интерфейс, исправляем баги, готовим файлы и помогаем довести проект до публикации." data-en="We test, polish the interface, fix bugs, prepare files and help bring the project to publication.">Тестируем, полируем интерфейс, исправляем баги, готовим файлы и помогаем довести проект до публикации.</p>
+            <ul class="process-mini-list">
+              <li class="lang-txt" data-ru="QA и polish" data-en="QA and polish">QA и polish</li>
+              <li class="lang-txt" data-ru="публикация" data-en="release">публикация</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
@@ -432,10 +588,10 @@
             <span class="section-label lang-txt" data-ru="О студии" data-en="About studio">О студии</span>
             <h2 class="section-title lang-txt" data-ru="Nuvora — маленькая студия с продуктовым подходом." data-en="Nuvora is a small studio with a product-minded approach.">Nuvora — маленькая студия с продуктовым подходом.</h2>
           </div>
-          <p class="about-text lang-txt" data-ru="За Nuvora стоит Даниэль: Flutter Developer и UI/UX Designer. Формат студии позволяет делать проекты под ключ: продумать структуру, собрать дизайн, сверстать сайт, разработать приложение и довести MVP до аккуратного запуска." data-en="Nuvora is led by Daniel: a Flutter Developer and UI/UX Designer. The studio format makes it possible to build projects end-to-end: structure, design, website, app development and polished MVP launch.">За Nuvora стоит Даниэль: Flutter Developer и UI/UX Designer. Формат студии позволяет делать проекты под ключ: продумать структуру, собрать дизайн, сверстать сайт, разработать приложение и довести MVP до аккуратного запуска.</p>
+          <p class="about-text lang-txt" data-ru="За Nuvora стоит небольшая команда под руководством Даниэля: Flutter-разработка, frontend и UI/UX-дизайн работают как единый процесс. Мы берём проект под ключ: продумываем структуру, собираем дизайн, верстаем сайт, разрабатываем приложение и доводим MVP до аккуратного запуска." data-en="Nuvora is a small team led by Daniel: Flutter development, frontend and UI/UX design work as one process. We take projects end-to-end: plan the structure, design the interface, build the website, develop the app and bring the MVP to a polished launch.">За Nuvora стоит небольшая команда под руководством Даниэля: Flutter-разработка, frontend и UI/UX-дизайн работают как единый процесс. Мы берём проект под ключ: продумываем структуру, собираем дизайн, верстаем сайт, разрабатываем приложение и доводим MVP до аккуратного запуска.</p>
         </div>
         <div class="github-panel active-hover">
-          <div class="github-head"><i class="fa-brands fa-github"></i><div><strong>@aslonovrgb</strong><small class="lang-txt" data-ru="Свежие репозитории" data-en="Latest repositories">Свежие репозитории</small></div></div>
+          <div class="github-head"><i class="fa-brands fa-github"></i><div><strong>@usanv</strong><small class="lang-txt" data-ru="Свежие репозитории" data-en="Latest repositories">Свежие репозитории</small></div></div>
           <div id="github-repos-list" class="repo-list">
             <p class="muted lang-txt" data-ru="Загрузка репозиториев..." data-en="Loading repositories...">Загрузка репозиториев...</p>
           </div>
@@ -509,6 +665,16 @@
             <span>Email</span>
             <input type="email" name="email" required class="active-hover" placeholder="you@example.com">
           </label>
+          <div class="contact-quick" aria-label="Project format">
+            <span class="lang-txt" data-ru="Формат проекта" data-en="Project format">Формат проекта</span>
+            <div class="contact-quick-grid">
+              <button type="button" class="quick-brief-chip active-hover" data-brief-ru="Нужен сайт / лендинг. Важно: современный дизайн, адаптивность, понятная структура и форма заявки." data-brief-en="Need a website / landing page. Important: modern design, responsive layout, clear structure and a request form."><span class="lang-txt" data-ru="Сайт" data-en="Website">Сайт</span></button>
+              <button type="button" class="quick-brief-chip active-hover" data-brief-ru="Нужно мобильное приложение на Flutter для iOS и Android. Нужны ключевые экраны, логика и аккуратный MVP-запуск." data-brief-en="Need a Flutter mobile app for iOS and Android. Key screens, logic and a polished MVP launch are needed."><span class="lang-txt" data-ru="Приложение" data-en="App">Приложение</span></button>
+              <button type="button" class="quick-brief-chip active-hover" data-brief-ru="Нужен UI/UX дизайн в Figma: структура, user flow, UI-kit, компоненты и прототип." data-brief-en="Need UI/UX design in Figma: structure, user flow, UI kit, components and prototype."><span class="lang-txt" data-ru="UI/UX" data-en="UI/UX">UI/UX</span></button>
+              <button type="button" class="quick-brief-chip active-hover" data-brief-ru="Нужен MVP продукта: определить главный сценарий, собрать дизайн, разработать первую рабочую версию и подготовить запуск." data-brief-en="Need a product MVP: define the main scenario, design the interface, build the first working version and prepare launch."><span class="lang-txt" data-ru="MVP" data-en="MVP">MVP</span></button>
+              <button type="button" class="quick-brief-chip active-hover" data-brief-ru="Нужно улучшить существующий продукт: редизайн, UX, адаптивность, скорость и более понятные CTA." data-brief-en="Need to improve an existing product: redesign, UX, responsiveness, speed and clearer CTAs."><span class="lang-txt" data-ru="Редизайн" data-en="Redesign">Редизайн</span></button>
+            </div>
+          </div>
           <label>
             <span class="lang-txt" data-ru="Что нужно сделать?" data-en="What should we build?">Что нужно сделать?</span>
             <textarea name="message" rows="5" required class="active-hover" data-ru-placeholder="Сайт, приложение, дизайн, MVP, редизайн..." data-en-placeholder="Website, app, design, MVP, redesign..." placeholder="Сайт, приложение, дизайн, MVP, редизайн..."></textarea>
@@ -523,11 +689,28 @@
     </section>
   </main>
 
+  <div id="preview-modal" class="preview-modal" aria-hidden="true">
+    <div class="preview-modal-backdrop" data-close-preview></div>
+    <div class="preview-modal-panel" role="dialog" aria-modal="true" aria-label="Live website preview">
+      <div class="preview-modal-top">
+        <div class="browser-dots"><span></span><span></span><span></span></div>
+        <strong id="preview-modal-title">Live preview</strong>
+        <div class="preview-modal-tools" aria-label="Preview size">
+          <button type="button" class="preview-size-btn active active-hover" data-modal-preview-size="desktop"><span class="lang-txt" data-ru="ПК" data-en="Desktop">ПК</span></button>
+          <button type="button" class="preview-size-btn active-hover" data-modal-preview-size="mobile"><span class="lang-txt" data-ru="Моб" data-en="Mobile">Моб</span></button>
+        </div>
+        <button type="button" id="preview-modal-close" class="icon-btn active-hover" aria-label="Close preview"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <iframe id="preview-modal-frame" title="Expanded live preview" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <p class="preview-modal-note lang-txt" data-ru="Если сайт запрещает показ внутри iframe, используйте кнопку «Открыть сайт» в карточке." data-en="If a website blocks iframe display, use the “Open site” button in the card.">Если сайт запрещает показ внутри iframe, используйте кнопку «Открыть сайт» в карточке.</p>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
         <a href="#top" class="logo active-hover"><span class="logo-mark">N</span><span>Nuvora</span></a>
-        <p class="lang-txt" data-ru="Digital-студия для сайтов, мобильных приложений, UI/UX и MVP. Nuvora Studio by Savchenko Daniil." data-en="Digital studio for websites, mobile apps, UI/UX and MVPs. Nuvora Studio by Savchenko Daniil.">Digital-студия для сайтов, мобильных приложений, UI/UX и MVP. Nuvora Studio by Savchenko Daniil.</p>
+        <p class="lang-txt" data-ru="Digital-студия для сайтов, мобильных приложений, UI/UX и MVP. Команда Nuvora Studio." data-en="Digital studio for websites, mobile apps, UI/UX and MVPs. Nuvora Studio team.">Digital-студия для сайтов, мобильных приложений, UI/UX и MVP. Команда Nuvora Studio.</p>
       </div>
       <div>
         <h4 class="lang-txt" data-ru="Навигация" data-en="Navigation">Навигация</h4>
@@ -538,7 +721,7 @@
       </div>
       <div>
         <h4>Social</h4>
-        <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="footer-link active-hover">GitHub</a>
+        <a href="https://github.com/usanv" target="_blank" rel="noopener" class="footer-link active-hover">GitHub</a>
         <a href="https://t.me/nenotiiice" target="_blank" rel="noopener" class="footer-link active-hover">Telegram</a>
         <a href="mailto:nenotiiice@gmail.com" class="footer-link active-hover">Email</a>
       </div>

@@ -34,6 +34,10 @@
     try { localStorage.setItem(key, value); } catch { /* ignore private mode */ }
   }
 
+  function safeRemove(key) {
+    try { localStorage.removeItem(key); } catch { /* ignore private mode */ }
+  }
+
   function qs(selector, parent = document) {
     return parent.querySelector(selector);
   }
@@ -101,8 +105,14 @@
       if (value !== null) el.setAttribute('placeholder', value);
     });
 
+    qsa('option[data-ru][data-en]').forEach((option) => {
+      const value = option.getAttribute(`data-${lang}`);
+      if (value !== null) option.textContent = value;
+    });
+
     updateGreeting();
     restartTypewriter();
+    refreshInteractiveText();
   }
 
   function restartTypewriter() {
@@ -234,7 +244,7 @@
     if (!list) return;
 
     try {
-      const res = await fetch('https://api.github.com/users/aslonovrgb/repos?sort=updated&per_page=4', {
+      const res = await fetch('https://api.github.com/users/usanv/repos?sort=updated&per_page=4', {
         headers: { Accept: 'application/vnd.github+json' }
       });
       if (!res.ok) throw new Error('GitHub request failed');
@@ -249,7 +259,7 @@
     } catch {
       list.innerHTML = `
         <div class="repo-item">
-          <a href="https://github.com/aslonovrgb" target="_blank" rel="noopener" class="active-hover">GitHub Profile</a>
+          <a href="https://github.com/usanv" target="_blank" rel="noopener" class="active-hover">GitHub Profile</a>
           <span><i class="fa-brands fa-github"></i>open</span>
         </div>
       `;
@@ -405,6 +415,311 @@
     });
   }
 
+  function refreshInteractiveText() {
+    renderEstimate(true);
+    updateLaunchProgress(false);
+    syncContactQuickBrief(false);
+  }
+
+  function initLiveFrames() {
+    const frames = qsa('.live-frame[data-src]');
+    if (!frames.length) return;
+
+    const loadFrame = (frame) => {
+      if (!frame.getAttribute('src')) frame.setAttribute('src', frame.dataset.src);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      frames.forEach(loadFrame);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadFrame(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '240px 0px' });
+
+    frames.forEach((frame) => observer.observe(frame));
+  }
+
+  function initPreviewModal() {
+    const modal = qs('#preview-modal');
+    const frame = qs('#preview-modal-frame');
+    const title = qs('#preview-modal-title');
+    const closeBtn = qs('#preview-modal-close');
+    if (!modal || !frame || !title) return;
+
+    const openPreview = (url, name) => {
+      frame.setAttribute('src', url);
+      title.textContent = name || 'Live preview';
+      modal.classList.remove('mobile-view');
+      qsa('[data-modal-preview-size]', modal).forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.modalPreviewSize === 'desktop');
+      });
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      body.classList.add('preview-open');
+    };
+
+    const closePreview = () => {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      body.classList.remove('preview-open');
+      frame.removeAttribute('src');
+    };
+
+    qsa('[data-open-preview]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openPreview(btn.dataset.openPreview, btn.dataset.title);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closePreview);
+    qsa('[data-close-preview]', modal).forEach((el) => el.addEventListener('click', closePreview));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closePreview();
+    });
+  }
+
+
+
+  function initLivePreviewDevices() {
+    qsa('.preview-browser').forEach((browser) => {
+      const buttons = qsa('[data-preview-size]', browser);
+      if (!buttons.length) return;
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          const mode = button.dataset.previewSize || 'desktop';
+          browser.classList.toggle('mobile-view', mode === 'mobile');
+          buttons.forEach((item) => item.classList.toggle('active', item === button));
+        });
+      });
+    });
+
+    const modal = qs('#preview-modal');
+    if (!modal) return;
+
+    qsa('[data-modal-preview-size]', modal).forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const mode = button.dataset.modalPreviewSize || 'desktop';
+        modal.classList.toggle('mobile-view', mode === 'mobile');
+        qsa('[data-modal-preview-size]', modal).forEach((item) => item.classList.toggle('active', item === button));
+      });
+    });
+  }
+
+  function syncContactQuickBrief(append = false) {
+    const chips = qsa('.quick-brief-chip');
+    const textarea = qs('#contact-form textarea[name="message"]');
+    if (!chips.length || !textarea) return;
+
+    const active = chips.find((chip) => chip.classList.contains('active')) || chips[0];
+    if (!active) return;
+
+    if (!append && textarea.dataset.quickFilled !== 'true') return;
+
+    const text = active.getAttribute(`data-brief-${state.lang}`) || active.getAttribute('data-brief-ru') || '';
+    const current = textarea.value.trim();
+
+    if (append && current && textarea.dataset.quickFilled !== 'true') {
+      textarea.value = `${current}\n\n${text}`;
+    } else {
+      textarea.value = text;
+    }
+
+    textarea.dataset.quickFilled = 'true';
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function initContactQuickBrief() {
+    const chips = qsa('.quick-brief-chip');
+    const textarea = qs('#contact-form textarea[name="message"]');
+    if (!chips.length || !textarea) return;
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((item) => item.classList.remove('active'));
+        chip.classList.add('active');
+        syncContactQuickBrief(true);
+        textarea.focus();
+      });
+    });
+
+    textarea.addEventListener('input', () => {
+      if (!textarea.value.trim()) textarea.dataset.quickFilled = 'false';
+    });
+  }
+
+  const CONTACT_DRAFT_KEY = 'nuvora-contact-draft';
+
+  function clearContactDraft() {
+    safeRemove(CONTACT_DRAFT_KEY);
+  }
+
+  function initContactDraft() {
+    const form = qs('#contact-form');
+    if (!form) return;
+
+    const fields = qsa('input[name="name"], input[name="email"], textarea[name="message"]', form);
+    if (!fields.length) return;
+
+    try {
+      const saved = JSON.parse(safeGet(CONTACT_DRAFT_KEY) || '{}');
+      fields.forEach((field) => {
+        if (!field.value && saved[field.name]) field.value = saved[field.name];
+      });
+    } catch { /* ignore invalid draft */ }
+
+    let timer;
+    const saveDraft = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const draft = {};
+        fields.forEach((field) => { draft[field.name] = field.value; });
+        safeSet(CONTACT_DRAFT_KEY, JSON.stringify(draft));
+      }, 180);
+    };
+
+    fields.forEach((field) => field.addEventListener('input', saveDraft));
+  }
+
+  function renderEstimate(onlyIfActive = false) {
+    const type = qs('#estimate-type');
+    const speed = qs('#estimate-speed');
+    const result = qs('#estimate-result');
+    if (!type || !speed || !result) return;
+
+    if (onlyIfActive && result.dataset.active !== 'true') return;
+
+    const messages = {
+      ru: {
+        site: {
+          calm: 'Сайт / лендинг: обычно 2–3 недели. Следующий шаг — структура, референсы и контент.',
+          fast: 'Сайт / лендинг: быстрый запуск возможен за 7–12 дней, если контент и цель готовы.'
+        },
+        app: {
+          calm: 'Мобильное приложение: MVP обычно 4–8 недель. Начинаем с сценариев, экранов и логики.',
+          fast: 'Flutter app sprint: 3–5 недель для компактного MVP с приоритетными экранами.'
+        },
+        mvp: {
+          calm: 'MVP продукта: 3–6 недель. Фокус — на ключевой ценности, интеграциях и аккуратном запуске.',
+          fast: 'Быстрый MVP: 2–4 недели, если оставить только основные сценарии и понятный scope.'
+        },
+        design: {
+          calm: 'UI/UX дизайн: 1–3 недели. На выходе — структура, Figma-макеты, UI-kit и handoff.',
+          fast: 'Дизайн-спринт: 5–10 дней для ключевых экранов, user flow и визуального направления.'
+        }
+      },
+      en: {
+        site: {
+          calm: 'Website / landing page: usually 2–3 weeks. Next step — structure, references and content.',
+          fast: 'Website / landing page: a fast launch is possible in 7–12 days if content and goal are ready.'
+        },
+        app: {
+          calm: 'Mobile app: MVP usually takes 4–8 weeks. We start with flows, screens and logic.',
+          fast: 'Flutter app sprint: 3–5 weeks for a compact MVP with priority screens.'
+        },
+        mvp: {
+          calm: 'Product MVP: 3–6 weeks. Focus — core value, integrations and a polished launch.',
+          fast: 'Fast MVP: 2–4 weeks if we keep only core scenarios and a clear scope.'
+        },
+        design: {
+          calm: 'UI/UX design: 1–3 weeks. Deliverables — structure, Figma layouts, UI kit and handoff.',
+          fast: 'Design sprint: 5–10 days for key screens, user flow and visual direction.'
+        }
+      }
+    };
+
+    result.textContent = messages[state.lang][type.value][speed.value];
+    result.dataset.active = 'true';
+  }
+
+  function initEstimator() {
+    const btn = qs('#estimate-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => renderEstimate(false));
+  }
+
+  function initQuickBrief() {
+    const chips = qsa('.brief-chip');
+    const moveBtn = qs('#brief-to-contact');
+    const textarea = qs('#contact-form textarea[name="message"]');
+    if (!chips.length || !moveBtn || !textarea) return;
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((item) => item.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+
+    moveBtn.addEventListener('click', () => {
+      const active = chips.find((chip) => chip.classList.contains('active')) || chips[0];
+      const text = active.getAttribute(`data-brief-${state.lang}`) || active.getAttribute('data-brief-ru') || '';
+      textarea.value = text;
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      qs('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => textarea.focus(), 550);
+    });
+  }
+
+  function updateLaunchProgress(save = true) {
+    const checks = qsa('.launch-check');
+    const fill = qs('#launch-progress-fill');
+    const text = qs('#launch-progress-text');
+    if (!checks.length || !fill || !text) return;
+
+    const done = checks.filter((item) => item.checked).length;
+    const percent = Math.round((done / checks.length) * 100);
+    fill.style.width = `${percent}%`;
+    text.textContent = state.lang === 'ru' ? `Готовность: ${percent}%` : `Readiness: ${percent}%`;
+
+    if (save) {
+      safeSet('launch-checklist', JSON.stringify(checks.map((item) => item.checked)));
+    }
+  }
+
+  function initLaunchChecklist() {
+    const checks = qsa('.launch-check');
+    if (!checks.length) return;
+
+    try {
+      const saved = JSON.parse(safeGet('launch-checklist') || '[]');
+      checks.forEach((check, index) => {
+        check.checked = Boolean(saved[index]);
+      });
+    } catch { /* ignore invalid storage */ }
+
+    checks.forEach((check) => check.addEventListener('change', () => updateLaunchProgress(true)));
+    updateLaunchProgress(false);
+  }
+
+  function initFeatureCopyEmail() {
+    const btn = qs('#copy-email-feature');
+    const toast = qs('#toast');
+    if (!btn || !toast) return;
+
+    btn.addEventListener('click', async () => {
+      const value = 'nenotiiice@gmail.com';
+      try {
+        await navigator.clipboard.writeText(value);
+        toast.textContent = state.lang === 'ru' ? 'Email скопирован!' : 'Email copied!';
+      } catch {
+        toast.textContent = value;
+      }
+      toast.classList.add('active');
+      setTimeout(() => toast.classList.remove('active'), 2200);
+    });
+  }
+
   function initForm() {
     const form = qs('#contact-form');
     const status = qs('#form-status');
@@ -426,6 +741,7 @@
 
         if (response.ok) {
           form.reset();
+          clearContactDraft();
           status.className = 'success';
           status.textContent = state.lang === 'ru'
             ? 'Заявка отправлена. Спасибо!'
@@ -452,6 +768,15 @@
     initCopyEmail();
     initFilters();
     initFaq();
+    initLiveFrames();
+    initPreviewModal();
+    initLivePreviewDevices();
+    initContactQuickBrief();
+    initContactDraft();
+    initEstimator();
+    initQuickBrief();
+    initLaunchChecklist();
+    initFeatureCopyEmail();
     initReveal();
     initProgressAndSpy();
     initCursor();
